@@ -1,181 +1,318 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
 
 # LWS-REST Mock Requests
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+This document contains mock API requests only.
+See real API on [http://docs.lokiserver.apiary.io](http://docs.lokiserver.apiary.io).
 
-# Polls API Root [/]
 
-This resource does not have any attributes. Instead it offers the initial
-API affordances in the form of the links in the JSON body.
+# Group VoIP User
+Following resources belong to VoIP User entity.
 
-It is recommend to follow the “url” link values,
-[Link](https://tools.ietf.org/html/rfc5988) or Location headers where
-applicable to retrieve resources. Instead of constructing your own URLs,
-to keep your client decoupled from implementation details.
+## VoIP User [/loki/users/{+userId}]
+Represents VoIP User resource.
 
-## Retrieve the Entry Point [GET]
+### URI Template Parameters JSON Schema
+    {
+        "title": "VoIP User resource URI template parameters",
+        "description": "VoIP User resource URI template parameters",
+        "type": "object",
+        "properties": {
+            "userId": { "$ref": "/base#/definitions/UserId" }
+        },
+        "required": ["userId"]
+    }
 
-+ Response 200 (application/json)
 
-        {
-            "questions_url": "/questions"
-        }
+### Retrieve a VoIP User [GET]
+Retrieve a VoIP User information.
 
-## Group Question
++ Links
+    + self
+    + ls:customer - Points to Customer resource [GET /loki/customers/{+customerId}]
+    + up - Points to User's Site [GET /loki/customers/{+customerId}/sites/{+siteId}]
+    + ls:user-device - Points to User's Device. Optional. [GET /loki/customers/{+customerId}/sites/{+siteId}/devices/{+deviceId}]
+    + ls:user-services - Points to User's services collection. [GET /loki/users/{+userId}/services]
+    + ls:user-reInvite - Points to User ReInvite controller. [POST /loki/users/{+userId}/reInvite]
 
-Resources related to questions in the API.
-
-## Question [/questions/{question_id}]
-
-A Question object has the following attributes:
-
-+ question
-+ published_at - An ISO8601 date when the question was published.
-+ url
-+ choices - An array of Choice objects.
-
-+ Parameters
-    + question_id: 1 (required, number) - ID of the Question in form of an integer
-
-### View a Questions Detail [GET]
-
-+ Response 200 (application/json)
-
-        {
-            "question": "Favourite programming language?",
-            "published_at": "2014-11-11T08:40:51.620Z",
-            "url": "/questions/1",
-            "choices": [
-                {
-                    "choice": "Swift",
-                    "url": "/questions/1/choices/1",
-                    "votes": 2048
-                }, {
-                    "choice": "Python",
-                    "url": "/questions/1/choices/2",
-                    "votes": 1024
-                }, {
-                    "choice": "Objective-C",
-                    "url": "/questions/1/choices/3",
-                    "votes": 512
-                }, {
-                    "choice": "Ruby",
-                    "url": "/questions/1/choices/4",
-                    "votes": 256
-                }
-            ]
-        }
-
-## Choice [/questions/{question_id}/choices/{choice_id}]
-
-+ Parameters
-    + question_id: 1 (required, number) - ID of the Question in form of an integer
-    + choice_id: 1 (required, number) - ID of the Choice in form of an integer
-
-### Vote on a Choice [POST]
-
-This action allows you to vote on a question's choice.
-
-+ Response 201
-
-    + Headers
-
-            Location: /questions/1
-
-## Questions Collection [/questions{?page}]
-
-+ Parameters
-    + page: 1 (optional, number) - The page of questions to return
-
-### List All Questions [GET]
-
-+ Response 200 (application/json)
-
-    + Headers
-
-            Link: </questions?page=2>; rel="next"
-
-    + Body
-
-            [
-                {
-                    "question": "Favourite programming language?",
-                    "published_at": "2014-11-11T08:40:51.620Z",
-                    "url": "/questions/1",
-                    "choices": [
-                        {
-                            "choice": "Swift",
-                            "url": "/questions/1/choices/1",
-                            "votes": 2048
-                        }, {
-                            "choice": "Python",
-                            "url": "/questions/1/choices/2",
-                            "votes": 1024
-                        }, {
-                            "choice": "Objective-C",
-                            "url": "/questions/1/choices/3",
-                            "votes": 512
-                        }, {
-                            "choice": "Ruby",
-                            "url": "/questions/1/choices/4",
-                            "votes": 256
-                        }
-                    ]
-                }
-            ]
-
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
-
-+ question (string) - The question
-+ choices (array[string]) - A collection of choices.
++ Embedded Resources
+    + ls:user-device
 
 + Request (application/json)
 
-        {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
+    + Headers
+        Transaction-Id: 1380080943120
 
-+ Response 201 (application/json)
+
++ Response 200 (application/hal+json)
 
     + Headers
-
-            Location: /questions/2
+        Transaction-Id: 1380080943120
 
     + Body
 
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2014-11-11T08:40:51.620Z",
-                "url": "/questions/2",
-                "choices": [
+        {
+            "_links": {
+                "self": {
+                    "href": "http://example.com/loki/customers/DemoCustomer/sites/DemoSite/users/testuser@example.net"
+                },
+                "curies": [
                     {
-                        "choice": "Swift",
-                        "url": "/questions/2/choices/1",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "url": "/questions/2/choices/2",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "url": "/questions/2/choices/3",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "url": "/questions/2/choices/4",
-                        "votes": 0
+                        "name": "ls",
+                        "href": "http://example.com/loki/rels/{rel}",
+                        "templated": true
+                    }
+                ],
+                "ls:customer": { "href": "http://example.com/loki/customers/DemoCustomer" },
+                "ls:site": { "href": "http://example.com/loki/customers/DemoCustomer/sites/DemoSite" },
+                "ls:user-service": { "href": "http://example.com/loki/customers/DemoCustomer/sites/DemoSite/users/testuser@example.net/services" }
+            },
+            "customerId": "DemoCustomer",
+            "siteId": "DemoSite",
+            "userId": "testuser@example.net",
+            "lastName": "Smith",
+            "firstName": "John",
+            "callingLineIdLastName": "Smith",
+            "callingLineIdFirstName": "John",
+            "phoneNumber": "+1-4152223000",
+            "extension": "3000",
+            "callingLineIdPhoneNumber": "+1-4152223000",
+            "language": "English",
+            "timeZone": "America/New_York",
+            "networkClassOfService": "NCOS",
+            "_embedded": {
+                "ls:user-device": {
+                    "_links": {
+                        "self": { "href": "http://example.com/loki/customers/DemoCustomer/sites/DemoSite/devices/DemoDevice" }
+                    },
+                    "deviceId": "DemoDevice",
+                    "linePort": "testdevice@example.net"
+                }
+            }
+        }
+
+    + Schema
+
+        {
+            "title": "Retrieve VoIP User response",
+            "description": "Retrieve VoIP User response",
+            "allOf": [
+                { "$ref": "/base#/definitions/HalResponse" },
+                { "required": ["_links"] },
+        
+                { "properties": {
+                    "_embedded": {
+                        "properties": {
+                            "ls:user-device": {
+                                "allOf": [
+                                    { "$ref": "/base#/definitions/HalResponse" },
+                                    { "$ref": "/user#/definitions/UserDevice" }
+                                ]
+                            }
+                        }
+                    }
+                }},
+        
+                { "$ref": "/user#/definitions/User" },
+                { "required": ["customerId", "siteId", "userId", "lastName", "firstName", "language", "timeZone"] }
+            ]
+        }
+
+
+## VoIP User Registrations List [/loki/users/{+userId}/registrations]
+Represents the Collection of VoIP User registrations.
+
+### URI Template Parameters JSON Schema
+    {
+        "title": "VoIP User resource URI template parameters",
+        "description": "VoIP User resource URI template parameters",
+        "type": "object",
+        "properties": {
+            "userId": { "$ref": "/base#/definitions/UserId" }
+        },
+        "required": ["userId"]
+    }
+### Retrieve a VoIP User's Registrations List [GET /loki/users/{+userId}/registrations]
+Retrieve a VoIP User's Registrations List.
+
++ Links
+    + self
+    + up - Link to User [GET /loki/users/{+userId}]
+
++ Embedded Resources
+    + item
+
++ Parameters
+    + userId - VoIP User ID
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+
+        {
+            "_links": {
+                "self": {
+                    "href": "http://loki.example.com/loki/users/exampleUserId%40example.com/registrations"
+                },
+                "up": {
+                    "href": "http://loki.example.com/loki/users/exampleUserId%40example.com"
+                }
+            },
+            "_embedded": {
+                "item": [
+                    {
+                        "_links": {
+                            "ls:registered-device": {
+                                "href": "http://loki.example.com/loki/customers/ExampleCom/sites/ExampleCom/devices/example_btbc_pc"
+                            }
+                        },
+                        "_embedded": {
+                            "ls:registered-device": {
+                                "_links": {
+                                    "self": {
+                                        "href": "http://loki.example.com/loki/customers/ExampleCom/sites/ExampleCom/devices/example_btbc_pc"
+                                    }
+                                },
+                                "customerId": "ExampleCom",
+                                "siteId": "ExampleCom",
+                                "deviceId": " example_btbc_pc",
+                                "name": " example_btbc_pc",
+                                "level": "Site"
+                            }
+                        },
+                        "userId": "exampleUserId@example.com",
+                        "order": 1,
+                        "uri": "sip:btbcpcexampleUserId-9k0bol85l7lvf@10.48.1.13:5060;transport=udp",
+                        "expiration": "Wed Aug 12 03:17:30 EDT 2015",
+                        "linePort": "btbcpcexampleUserId@example.com",
+                        "endpointType": "Primary",
+                        "publicNetAddress": "10.48.1.13",
+                        "publicPort": "5060",
+                        "privateNetAddress": "",
+                        "privatePort": "",
+                        "userAgent": "bc-uc - UC-One (21.2.0.443 Windows (160))",
+                        "lockout": {
+                            "started": "",
+                            "expires": "",
+                            "count": "0"
+                        }
+                    },
+                    {
+                        "_links": {
+                            "ls:registered-device": {
+                                "href": "http://loki.example.com/loki/customers/ExampleCom/devices/example_btbc_mac"
+                            }
+                        },
+                        "_embedded": {
+                            "ls:registered-device": {
+                                "_links": {
+                                    "self": {
+                                        "href": "http://loki.example.com/loki/customers/ExampleCom/devices/example_btbc_mac"
+                                    }
+                                },
+                                "customerId": "ExampleCom",
+                                "deviceId": "example_btbc_mac",
+                                "name": "example_btbc_mac",
+                                "level": "Customer"
+                            }
+                        },
+                        "userId": "exampleUserId@example.com",
+                        "order": 2,
+                        "uri": "sip:btbcmacexampleUserId-9k0bol85l7lvf@10.48.1.14:5060;transport=udp",
+                        "expiration": "Wed Aug 12 03:17:30 EDT 2015",
+                        "linePort": "btbcmacexampleUserId@example.com",
+                        "endpointType": "Shared Call Appearance",
+                        "publicNetAddress": "10.48.1.14",
+                        "publicPort": "5060",
+                        "privateNetAddress": "",
+                        "privatePort": "",
+                        "userAgent": "bc-uc - UC-One (21.2.0.443 Mac (160))",
+                        "lockout": {
+                            "started": "",
+                            "expires": "",
+                            "count": "0"
+                        }
                     }
                 ]
             }
+        }
+
+    + Schema
+
+        {
+            "title": "Retrieve VoIP User's Registrations response",
+            "description": "Retrieve VoIP User's Registrations response",
+            "allOf": [
+                { "$ref": "/base#/definitions/HalResponse" },
+                { "required": ["_links", "_embedded"] },
+                { "properties": {
+                    "_embedded": {
+                        "properties": {
+                            "item": {
+                                "type": "array",
+                                "items": {
+                                    "allOf": [
+                                        { "$ref": "/base#/definitions/HalResponse" },
+                                        { "required": ["_links", "_embedded"] },
+                                        { "properties": {
+                                            "_embedded": {
+                                                "properties": {
+                                                    "ls:registered-device": {
+                                                        "allOf": [
+                                                            { "$ref": "/base#/definitions/HalResponse" },
+                                                            { "required": ["_links"] },
+                                                            { "$ref": "/user#/definitions/UserDevice" },
+                                                            { "properties": {
+                                                                "customerId": { "$ref": "/base#/definitions/CustomerId" },
+                                                                "siteId": { "$ref" : "/base#/definitions/SiteId" },
+                                                                "deviceId": { "$ref" : "/base#/definitions/DeviceId" }
+                                                            } },
+                                                            { "required": ["deviceId", "name", "level"] }
+                                                        ]
+                                                    }
+                                                },
+                                                "required": ["ls:registered-device"]
+                                            },
+                                            "userId": { "$ref" : "/base#/definitions/UserId" },
+                                            "order": { "type": "integer" },
+                                            "uri": { "type": "string" },
+                                            "expiration": { "type": "string" },
+                                            "linePort": { "type": "string", "minLength": 1, "maxLength": 161 },
+                                            "endpointType": { "type": "string" },
+                                            "publicNetAddress": { "type": "string" },
+                                            "publicPort": { "type": "string" },
+                                            "privateNetAddress": { "type": "string" },
+                                            "privatePort": { "type": "string" },
+                                            "userAgent": { "type": "string" },
+                                            "lockout": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "started": { "type": "string" },
+                                                    "expires": { "type": "string" },
+                                                    "count": { "type": "string" }
+                                                },
+                                                "required": ["started", "expires", "count"]
+                                            }
+                                        } },
+                                        { "required": ["userId", "order", "uri", "expiration", "linePort", "endpointType", "publicNetAddress", "publicPort", "privateNetAddress", "privatePort", "userAgent", "lockout"] }
+                                    ]
+                                }
+                            }
+                        },
+                        "required": ["item"]
+                    }
+                } }
+            ]
+        }
+
+
+# Group Footer
+The End.
