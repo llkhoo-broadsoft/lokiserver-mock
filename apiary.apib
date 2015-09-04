@@ -6,6 +6,132 @@ This document contains mock API requests only.
 See real API on [http://docs.lokiserver.apiary.io](http://docs.lokiserver.apiary.io).
 
 
+# Group User Services
+Following resources belong to User Services.
+
+## VoIP User’s Call Forwarding Always Settings [/loki/users/{+userId}/services/Call%20Forwarding%20Always]
+VoIP User’s Call Forwarding Always Settings
+
+### URI Template Parameters JSON Schema
+    {
+        "title": "VoIP User resource URI template parameters",
+        "description": "VoIP User resource URI template parameters",
+        "type": "object",
+        "properties": {
+            "userId": { "$ref": "/base#/definitions/UserId" }
+        },
+        "required": ["userId"]
+    }
+### Retrieve a VoIP User’s Call Forwarding Always service settings [GET]
+Retrieve a VoIP User’s Call Forwarding Always service settings
+
++ Links
+    + self - [GET /loki/users/{+userId}/services/Call%20Forwarding%20Always]
+    + up - Link to User assigned services [GET /loki/users/{+userId}/services]
+    + ls:user - Link to associated User. [GET /loki/users/{+userId}]
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+
+        {
+            "_links": {
+                "self": {
+                    "href": "http://lokiserver.apiary.io/loki/users/2005553001%40example.com/services/Call%20Forwarding%Always"
+                },
+                "up": { "href": "http://lokiserver.apiary.io/loki/users/2005553001%40example.com/services" },
+                "ls:user": { "href": "http://lokiserver.apiary.io/loki/users/2005553001%40example.com" }
+            },
+            "userId": "2005553001@example.com",
+            "isActive": true,
+            "forwardToPhoneNumber": "2005553002",
+            "isRingSplashActive": false
+        }
+
+    + Schema
+
+        {
+            "title": "Retrieve a VoIP User’s Call Forwarding Always service settings Response",
+            "description": "Retrieves a VoIP User’s Call Forwarding Always service settings Response",
+            "allOf": [
+                { "$ref": "/base#/definitions/HalResponse" },
+                { "properties": {
+                    "userId": {
+                        "$ref": "/base#/definitions/UserId"
+                    },
+                    "isActive": {
+                        "title": "is Active",
+                        "description": "Flag that specifies if the service is enabled.",
+                        "type": "boolean"
+                    },
+                    "forwardToPhoneNumber": {
+                        "$ref": "/base#/definitions/OutgoingDnOrSipUri"
+                    },
+                    "isRingSplashActive": {
+                        "title": "is Ring Splash Active",
+                        "description": "Play Ring Reminder when a call is forwarded.",
+                        "type": "boolean"
+                    }
+                }},
+                { "required": ["_links", "userId", "isActive", "forwardToPhoneNumber", "isRingSplashActive"] }
+            ]
+        }
+
+
+### Modify VoIP User’s Call Forwarding Always Settings [PUT]
+Modify VoIP User’s Call Forwarding Always Settings
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+   
+    + Body
+ 
+        {
+            "isActive": true,
+            "forwardToPhoneNumber": "+1-4151112222",
+            "isRingSplashActive": false
+        }
+        
+
+    + Schema
+
+        {
+            "title": "Modify a VoIP User’s Call Forwarding Always service settings Request",
+            "description": "Modify a VoIP User’s Call Forwarding Always service settings Request",
+            "allOf": [
+                { "properties": {
+                    "isActive": {
+                        "title": "is Active",
+                        "description": "Flag that specifies if the service is enabled.",
+                        "type": "boolean"
+                    },
+                    "forwardToPhoneNumber": {
+                        "$ref": "/base#/definitions/OutgoingDnOrSipUri"
+                    },
+                    "isRingSplashActive": {
+                        "title": "is Ring Splash Active",
+                        "description": "Play Ring Reminder when a call is forwarded.",
+                        "type": "boolean"
+                    }
+                }}
+            ]
+        }
+
++ Response 204 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
 # Group VoIP User
 Following resources belong to VoIP User entity.
 
@@ -28,15 +154,19 @@ Represents VoIP User resource.
 Retrieve a VoIP User information.
 
 + Links
-    + self
-    + ls:customer - Points to Customer resource [GET /loki/customers/{+customerId}]
-    + up - Points to User's Site [GET /loki/customers/{+customerId}/sites/{+siteId}]
-    + ls:user-device - Points to User's Device. Optional. [GET /loki/customers/{+customerId}/sites/{+siteId}/devices/{+deviceId}]
-    + ls:user-services - Points to User's services collection. [GET /loki/users/{+userId}/services]
-    + ls:user-reInvite - Points to User ReInvite controller. [POST /loki/users/{+userId}/reInvite]
+    + self - Self link.
+    + collection - Site Users collection. Single. [/loki/customers/{+customerId}/sites/{+siteId}/users]
+    + ls:customer - Customer resource. Single. [/loki/customers/{+customerId}]
+    + ls:site - Site resource. Single. [/loki/customers/{+customerId}/sites/{+siteId}]
+    + ls:user-device - User's Device. Single. Optional - not present when user does not have primary device. [/loki/customers/{+customerId}/sites/{+siteId}/devices/{+deviceId}]
+    + ls:user-registrations - User�s registrations collection. Single. [/loki/users/{+userId}/registrations]
+    + ls:user-services - User's services document. Single. [/loki/users/{+userId}/services]
+    + ls:user-reInvite - User ReInvite controller. Single. [/loki/users/{+userId}/reInvite]
+    + ls:user-swapDevice - Swap Device controller. Single. [/loki/users/{+userId}/swapDevice]
+    + ls:user-resetDeviceCredentials - Reset Device Credentials controller. Single. [/loki/users/{+userId}/resetDeviceCredentials]
 
 + Embedded Resources
-    + ls:user-device
+    + ls:user-device - Contains embedded representation of user's device. Not present if device is not assigned.
 
 + Request (application/json)
 
@@ -56,37 +186,106 @@ Retrieve a VoIP User information.
                 "self": {
                     "href": "http://example.com/loki/customers/DemoCustomer/sites/DemoSite/users/testuser@example.net"
                 },
-                "curies": [
-                    {
-                        "name": "ls",
-                        "href": "http://example.com/loki/rels/{rel}",
-                        "templated": true
-                    }
-                ],
-                "ls:customer": { "href": "http://example.com/loki/customers/DemoCustomer" },
-                "ls:site": { "href": "http://example.com/loki/customers/DemoCustomer/sites/DemoSite" },
-                "ls:user-service": { "href": "http://example.com/loki/customers/DemoCustomer/sites/DemoSite/users/testuser@example.net/services" }
+                "collection": {
+                    "href": "http://example.com/loki/customers/DemoCustomer/sites/DemoSite/users"
+                },
+                "ls:customer": {
+                    "href": "http://example.com/loki/customers/DemoCustomer"
+                },
+                "ls:site": {
+                    "href": "http://example.com/loki/customers/DemoCustomer/sites/DemoSite"
+                },
+                "ls:user-device": {
+                    "href": "http://example.com/loki/customers/DemoCustomer/sites/DemoSite/devices/DemoDevice"
+                },
+                "ls:user-services": {
+                    "href": "http://example.com/loki/customers/DemoCustomer/sites/DemoSite/users/testuser@example.net/services"
+                },
+                "ls:user-registrations": {
+                    "href": "http://example.com/loki/users/testuser@example.net/registrations"
+                },
+                "ls:user-reInvite": {
+                    "href": "http://example.com/loki/users/testuser@example.net/reInvite"
+                },
+                "ls:user-swapDevice": {
+                    "href": "http://example.com/loki/users/testuser@example.net/swapDevice"
+                },
+                "ls:user-resetDeviceCredentials": {
+                    "href": "http://example.com/loki/users/testuser@example.net/resetDeviceCredentials"
+                }
+            },
+            "_embedded": {
+                "ls:user-device": {
+                    "_links": {
+                        "self": {
+                            "href": "http://example.com/loki/customers/DemoCustomer/sites/DemoSite/devices/DemoDevice"
+                        }
+                    },
+                    "deviceId": "DemoDevice",
+                    "level": "Site",
+                    "name": "DemoDevice",
+                    "linePort": "testdevice@example.net",
+                    "port": null,
+                    "privateIdentity": null,
+                    "contact": [],
+                    "staticRegistrationCapable": true,
+                    "useDomain": true,
+                    "supportVisualDeviceManagement": false
+                }
             },
             "customerId": "DemoCustomer",
             "siteId": "DemoSite",
             "userId": "testuser@example.net",
             "lastName": "Smith",
             "firstName": "John",
-            "callingLineIdLastName": "Smith",
-            "callingLineIdFirstName": "John",
+            "callingLineId": {
+                "lastName": "Smith",
+                "firstName": "John",
+                "phoneNumber": "+1-4152223000"
+            },
+            "nameDialingName": {
+                "lastName": "Smith",
+                "firstName": "John"
+            },
             "phoneNumber": "+1-4152223000",
             "extension": "3000",
-            "callingLineIdPhoneNumber": "+1-4152223000",
+            "department": {
+                "type": "Site",
+                "customerId": "DemoCustomer",
+                "siteId": "DemoSite",
+                "name": "Department"
+            },
+            "departmentFullPath": "Parent Department \\ Department",
             "language": "English",
-            "timeZone": "America/New_York",
+            "timeZone": "GMT+00:00",
+            "defaultAlias": "testuser@example.net",
+            "alias": [
+                "testuser_old@example.net",
+                "testuser_me@example.net"
+            ],
+            "title": "Mr",
+            "pagerPhoneNumber": null,
+            "mobilePhoneNumber": "+1-7772223000",
+            "emailAddress": "jsmith@example.com",
+            "yahooId": null,
+            "address": {
+                "location": null,
+                "line1": "Rose 100",
+                "line2": null,
+                "city": "Beverly Hills",
+                "stateOrProvince": "CA",
+                "zipOrPostalCode": "90210",
+                "country": "United States"
+            },
+            "countryCode": "1",
+            "nationalPrefix": null,
             "networkClassOfService": "NCOS",
-            "_embedded": {
-                "ls:user-device": {
-                    "_links": {
-                        "self": { "href": "http://example.com/loki/customers/DemoCustomer/sites/DemoSite/devices/DemoDevice" }
-                    },
-                    "deviceId": "DemoDevice",
-                    "linePort": "testdevice@example.net"
+            "officeZoneName": "North Branch",
+            "primaryZoneName": null,
+            "impId": null,
+            "extensions": {
+                "broadworks": {
+                    "resourceId": "testuser@example.net"
                 }
             }
         }
@@ -97,24 +296,39 @@ Retrieve a VoIP User information.
             "title": "Retrieve VoIP User response",
             "description": "Retrieve VoIP User response",
             "allOf": [
-                { "$ref": "/base#/definitions/HalResponse" },
-                { "required": ["_links"] },
-        
-                { "properties": {
-                    "_embedded": {
-                        "properties": {
-                            "ls:user-device": {
-                                "allOf": [
-                                    { "$ref": "/base#/definitions/HalResponse" },
-                                    { "$ref": "/user#/definitions/UserDevice" }
-                                ]
+                {
+                    "$ref": "/base#/definitions/HalResponse"
+                }, {
+                    "required": ["_links", "_embedded"]
+                }, {
+                    "properties": {
+                        "_embedded": {
+                            "properties": {
+                                "ls:user-device": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "/user#/definitions/UserDevice"
+                                        }, {
+                                            "required": [
+                                                "deviceId", "level", "name", "linePort", "port", "contact",
+                                                "staticRegistrationCapable", "useDomain", "_links"
+                                            ]
+                                        }
+                                    ]
+                                }
                             }
                         }
                     }
-                }},
-        
-                { "$ref": "/user#/definitions/User" },
-                { "required": ["customerId", "siteId", "userId", "lastName", "firstName", "language", "timeZone"] }
+                }, {
+                    "$ref": "/user#/definitions/User"
+                }, {
+                    "required": [
+                        "customerId", "siteId", "userId", "lastName", "firstName", "callingLineId", "nameDialingName",
+                        "phoneNumber", "extension", "department", "departmentFullPath", "language", "timeZone", "defaultAlias",
+                        "alias", "title", "pagerPhoneNumber", "mobilePhoneNumber", "emailAddress", "yahooId", "address",
+                        "countryCode", "nationalPrefix", "networkClassOfService", "extensions"
+                    ]
+                }
             ]
         }
 
