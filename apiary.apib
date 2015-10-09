@@ -6,6 +6,283 @@ This document contains mock API requests only.
 See real API on [http://docs.lokiserver.apiary.io](http://docs.lokiserver.apiary.io).
 
 
+# Group Site Services 
+Following resources belong to Site Services.
+
+## Site Speed Dial 100 service [/api/customers/{+customerId}/sites/{+siteId}/services/Speed Dial 100]
+Represents Site Speed Dial 100 service resource.
+
+### URI Template Parameters JSON Schema
+    {
+        "title": "Site Speed Dial 100 service resource URI template parameters",
+        "description": "Site Speed Dial 100 service resource URI template parameters",
+        "type": "object",
+        "properties": {
+            "customerId": { "$ref": "/base#/definitions/CustomerId" },
+            "siteId": { "$ref": "/base#/definitions/SiteId" }
+        },
+        "required": ["customerId", "siteId"]
+    }
+
+
+### Retrieve Site Speed Dial 100 [GET]
+Retrieve Site Extension Length.
+
++ Links
+    + self - Self link.
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+
+        {
+            "_links": {
+                "self": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/services/Speed Dial 100"
+                },
+                "up": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/services"
+                },
+                "ls:site": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite"
+                },
+                "ls:customer": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer"
+                }
+            },
+            "customerId": "DemoCustomer",
+            "siteId": "DemoSite",
+            "prefix": 1
+        }
+
+    + Schema
+
+        {
+            "title": "Retrieve Site Speed Dial 100 service",
+            "description": "Retrieve Site Speed Dial 100 service",
+            "allOf": [
+                {
+                    "$ref": "/base#/definitions/HalResponse"
+                }, {
+                    "required": ["_links"]
+                }, {
+                    "properties": {
+                        "customerId": {
+                            "$ref": "/base#/definitions/CustomerId"
+                        },
+                        "siteId": {
+                            "$ref": "/base#/definitions/SiteId"
+                        },
+                        "prefix": {
+                            "type": "integer",
+                            "description": "Minimum length of the extension"
+                        }
+                    },
+                    "required": ["customerId", "siteId", "prefix"]
+                }
+            ]
+        }
+
+### Modify Site Speed Dial 100 [PUT]
+Modify Site Speed Dial 100.
+
++ Links
+    + self - Self link.
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+
+        {
+            "_links": {
+                "self": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/services/Speed Dial 100"
+                },
+                "up": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/services"
+                },
+                "ls:site": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite"
+                },
+                "ls:customer": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer"
+                }
+            }
+        }
+
+    + Schema
+
+        {
+            "title": "Modify a Site Extension Length",
+            "description": "Modify a Site Extension Length",
+            "allOf": [
+                {
+                    "$ref": "/base#/definitions/HalResponse"
+                }, {
+                    "required": ["_links"]
+                }
+            ]
+        }
+
+# Group Site 
+Following resources belong to Site entity.
+
+## Site Extension Length [/api/customers/{+customerId}/sites/{+siteId}/extension-length]
+Represents Site Extension Length resource.
+
+### URI Template Parameters JSON Schema
+    {
+        "title": "Site Extension Length resource URI template parameters",
+        "description": "Site Extension Length resource URI template parameters",
+        "type": "object",
+        "properties": {
+            "customerId": { "$ref": "/base#/definitions/CustomerId" },
+            "siteId": { "$ref": "/base#/definitions/SiteId" }
+        },
+        "required": ["customerId", "siteId"]
+    }
+
+
+### Retrieve Site Extension Length [GET]
+Retrieve Site Extension Length.
+
++ Links
+    + self - Self link.
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+
+        {
+            "_links": {
+                "self": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/extension-length"
+                },
+                "up": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite"
+                },
+                "ls:customer": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer"
+                }
+            },
+            "customerId": "DemoCustomer",
+            "siteId": "DemoSite",
+            "min": 4,
+            "max": 6,
+            "default": 4
+        }
+        
+
+    + Schema
+
+        {
+            "title": "Retrieve Site Extension Length",
+            "description": "Retrieve Site Extension Length",
+            "allOf": [
+                {
+                    "$ref": "/base#/definitions/HalResponse"
+                }, {
+                    "required": ["_links"]
+                }, {
+                    "properties": {
+                        "customerId": {
+                            "$ref": "/base#/definitions/CustomerId"
+                        },
+                        "siteId": {
+                            "$ref": "/base#/definitions/SiteId"
+                        },
+                        "min": {
+                            "type": "integer",
+                            "description": "Minimum length of the extension"
+                        },
+                        "max": {
+                            "type": "integer",
+                            "description": "Maximum length of the extension"
+                        },
+                        "default": {
+                            "type": "integer",
+                            "description": "Default length of the extension"
+                        }
+                    },
+                    "required": ["customerId", "siteId", "min", "max", "default"]
+                }
+            ]
+        }
+
+### Modify Site Extension Length [PUT]
+Modify Site Extension Length.
+
++ Links
+    + self - Self link.
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+
+        {
+            "_links": {
+                "self": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/extension-length"
+                },
+                "up": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite"
+                },
+                "ls:customer": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer"
+                }
+            }
+        }
+
+    + Schema
+
+        {
+            "title": "Modify a Site Extension Length",
+            "description": "Modify a Site Extension Length",
+            "allOf": [
+                {
+                    "$ref": "/base#/definitions/HalResponse"
+                }, {
+                    "required": ["_links"]
+                }
+            ]
+        }
+
 # Group System Time Zones
 Following resources belong to System Time Zones entity.
 
