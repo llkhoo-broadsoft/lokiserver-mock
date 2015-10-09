@@ -6,6 +6,90 @@ This document contains mock API requests only.
 See real API on [http://docs.lokiserver.apiary.io](http://docs.lokiserver.apiary.io).
 
 
+# Group System Time Zones
+Following resources belong to System Time Zones entity.
+
+## System Time Zones [/api/time-zones]
+Represents time zones list resource.
+
+### Retrieve Time Zones list [GET]
+Retrieve system Time Zones list.
+
++ Links
+    + self - Self link.
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+
+        {
+            "_links": {
+                "self": {
+                    "href": "http://uc.example.com/api/time-zones"
+                }
+            },
+            "serverTimeZone": "America/New_York",
+            "timeZones": {
+                "America/New_York": {
+                    "name": "America/New_York",
+                    "displayName": "(GMT-04:00) (US) Eastern Time"
+                },
+                "America/Montreal": {
+                    "name": "America/Montreal",
+                    "displayName": "(GMT-04:00) (Canada) Eastern Time"
+                }
+            }
+        }
+        
+
+    + Schema
+
+        {
+            "title": "Retrieve System time zones",
+            "description": "Retrieve System time zones",
+            "allOf": [
+                {
+                    "$ref": "/base#/definitions/HalResponse"
+                }, {
+                    "required": ["_links"]
+                }, {
+                    "properties": {
+                        "serverTimeZone": {
+                            "$ref": "/base#/definitions/TimeZone"
+                        },
+                        "timeZones": {
+                            "type": "object",
+                            "patternProperties": {
+                                "^.+$" : {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "name": {
+                                            "$ref": "/base#/definitions/TimeZone"
+                                        },
+                                        "displayName": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": ["name", "displayName"]
+                                }
+                            }
+                        }
+                    },
+                    "required": ["serverTimeZone", "timeZones"]
+                }
+            ]
+        }
+
 # Group User Services
 Following resources belong to User Services.
 
