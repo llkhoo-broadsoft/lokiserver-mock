@@ -144,6 +144,151 @@ Modify Site Speed Dial 100.
 
 # Group Site 
 Following resources belong to Site entity.
+## Customer’s Sites resource [/api/customers/{+customerId}/sites]
+Represents Customer’s Sites resource.
+
+### URI Template Parameters JSON Schema
+    {
+      "title": "Customer’s Sites list URI template parameters",
+      "description": "Customer’s Sites list URI template parameters",
+      "type": "object",
+      "properties": {
+        "customerId": { "$ref": "/base#/definitions/CustomerId" }
+      },
+      "required": ["customerId"]
+    }
+
+
+### Retrieve Customer’s Sites resource [GET]
+Retrieve Customer’s Sites resource.
+
++ Links
+    + self - Self link.
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+
+        {
+          "_links": {
+            "self": {
+              "href": "http://uc.example.com/api/customers/DemoCustomer/sites"
+            },
+            "up": {
+              "href": "http://uc.example.com/api/customers/DemoCustomer"
+            },
+            "item": [
+              {
+                "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite"
+              },
+              {
+                "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite2"
+              }
+            ],
+            "ls:system-password-rules": {
+              "href": "http://uc.example.com/api/password-rules"
+            },
+            "ls:system-passcode-rules": {
+              "href": "http://uc.example.com/api/passcode-rules"
+            }
+          },
+          "_embedded": {
+            "item": [
+              {
+                "_links": {
+                  "self": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite"
+                  },
+                  "ls:site-services": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/services"
+                  },
+                  "ls:site-phone-numbers": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/phone-numbers"
+                  },
+                  "ls:site-domains": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/domains"
+                  },
+                  "ls:site-users": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/users"
+                  },
+                  "ls:site-restore-default-feature-access-codes": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/restoreDefaultFeatureAccessCodes"
+                  }
+                },
+                "siteId": "DemoSite",
+                "userLimit": 25,
+                "siteName": "DemoSite",
+                "extensions": {
+                  "broadworks": {
+                    "resourceId": "DemoSite"
+                  }
+                }
+              },
+              {
+                "_links": {
+                  "self": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite2"
+                  },
+                  "ls:site-services": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite2/services"
+                  },
+                  "ls:site-phone-numbers": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite2/phone-numbers"
+                  },
+                  "ls:site-domains": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite2/domains"
+                  },
+                  "ls:site-users": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite2/users"
+                  },
+                  "ls:site-restore-default-feature-access-codes": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite2/restoreDefaultFeatureAccessCodes"
+                  }
+                },
+                "siteId": "DemoSite2",
+                "userLimit": 10,
+                "siteName": "DemoSite2",
+                "extensions": {
+                  "broadworks": {
+                    "resourceId": "DemoSite2"
+                  }
+                }
+              }
+            ]
+          },
+          "customerId": "DemoCustomer"
+        }
+        
+
+    + Schema
+
+        {
+          "title": "Retrieve the Customer’s Sites list",
+          "description": "Retrieve the Customer’s Sites list",
+          "allOf": [
+            {
+              "$ref": "/base#/definitions/HalResponse"
+            }, {
+              "required": ["_links"]
+            }, {
+              "properties": {
+                "customerId": {
+                  "$ref": "/base#/definitions/CustomerId"
+                }
+              },
+              "required": ["customerId"]
+            }
+          ]
+        }
 
 ## Site Extension Length [/api/customers/{+customerId}/sites/{+siteId}/extension-length]
 Represents Site Extension Length resource.
@@ -281,6 +426,1219 @@ Modify Site Extension Length.
                     "required": ["_links"]
                 }
             ]
+        }
+
+## Site resource [/api/customers/{+customerId}/sites/{+siteId}]
+Represents Site resource.
+
+### URI Template Parameters JSON Schema
+    {
+      "title": "Site resource URI template parameters",
+      "description": "Site resource URI template parameters",
+      "type": "object",
+      "properties": {
+        "customerId": { "$ref": "/base#/definitions/CustomerId" },
+        "siteId": { "$ref": "/base#/definitions/SiteId" }
+      },
+      "required": ["customerId", "siteId"]
+    }
+
+### Retrieve Site resource [GET]
+Retrieve Site resource.
+
++ Links
+    + self - Self link.
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+
+        {
+          "_links": {
+            "self": {
+              "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite"
+            },
+            "collection": {
+              "href": "http://uc.example.com/api/customers/DemoCustomer/sites"
+            },
+            "ls:customer": {
+              "href": "http://uc.example.com/api/customers/DemoCustomer"
+            },
+            "ls:site-services": {
+              "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/services"
+            },
+            "ls:site-phone-numbers": {
+              "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/phone-numbers"
+            },
+            "ls:site-domains": {
+              "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/domains"
+            },
+            "ls:site-users": {
+              "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/users"
+            },
+            "ls:site-restore-default-feature-access-codes": {
+              "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/restoreDefaultFeatureAccessCodes"
+            },
+            "ls:system-password-rules": {
+              "href": "http://uc.example.com/api/password-rules"
+            },
+            "ls:system-passcode-rules": {
+              "href": "http://uc.example.com/api/passcode-rules"
+            }
+          },
+          "customerId": "DemoCustomer",
+          "siteId": "DemoSite",
+          "profile": {
+            "defaultDomain": "example.com",
+            "userLimit": 25,
+            "userCount": 2,
+            "siteName": "DemoSite",
+            "callingLineId": {
+              "name": "ExampleCom",
+              "phoneNumber": "+1-2025555003"
+            },
+            "timeZone": "US\/Eastern",
+            "locationDialingCode": "1",
+            "contact": {
+              "name": "bob jones",
+              "phone": "2028887777",
+              "email": "bjones@jones.com"
+            },
+            "address": {
+              "addressLine1": "415 Sixth Ave",
+              "addressLine2": "Suite 102",
+              "city": "North Seventh",
+              "stateOrProvince": "Alabama",
+              "zipOrPostalCode": "50415",
+              "country": "USA"
+            }
+          },
+          "extensionLength": {
+            "min": 4,
+            "max": 6,
+            "default": 4
+          },
+          "passwordRules": {
+            "useRuleLevel": "Site",
+            "disallowUserId": false,
+            "disallowOldPassword": true,
+            "disallowReversedOldPassword": false,
+            "digits": {
+              "restrict": true,
+              "minimum": 2
+            },
+            "upperCaseLetters": {
+              "restrict": true,
+              "minimum": 1
+            },
+            "lowerCaseLetters": {
+              "restrict": true,
+              "minimum": 1
+            },
+            "nonAlphanumericCharacters": {
+              "restrict": true,
+              "minimum": 1
+            },
+            "length": {
+              "minimum": 8
+            },
+            "loginAttempts": {
+              "restrict": true,
+              "maximum": 3
+            },
+            "expirePassword": {
+              "restrict": true,
+              "numberOfDays": 30
+            },
+            "loginDisabledNotification": {
+              "sendEmail": true,
+              "email": "DemoEmail@example.com"
+            },
+            "previousPasswords": {
+              "restrict": true,
+              "numberOfPasswords": 2
+            },
+            "disallowRulesModification": false
+          },
+          "passcodeRules": {
+            "useRuleLevel": "Site",
+            "repeatedDigits": {
+              "restrict": true,
+              "maximum": 2
+            },
+            "disallowRepeatedPatterns": true,
+            "contiguousSequences": {
+              "restrict": true,
+              "numberOfAscendingDigits": 3,
+              "numberOfDescendingDigits": 3
+            },
+            "disallowUserNumber": true,
+            "disallowReversedUserNumber": false,
+            "previousPasscodes": {
+              "restrict": true,
+              "numberOfPasscodes": 2
+            },
+            "disallowReversedOldPasscode": false,
+            "length": {
+              "minimum": 6,
+              "maximum": 10
+            },
+            "loginAttempts": {
+              "restrict": true,
+              "maximum": 3
+            },
+            "expirePasscode": {
+              "restrict": true,
+              "numberOfDays": 30
+            },
+            "loginDisabledNotification": {
+              "sendEmail": false,
+              "email": null
+            }
+          },
+          "featureAccessCodes": {
+            "useFeatureAccessCodeLevel": "Site",
+            "codes": [
+              {
+                "name": "Direct Voice Mail Transfer",
+                "mainCode": "*55",
+                "alternateCode": "*65",
+                "enable": true
+              },
+              {
+                "name": "Call Forwarding Not Reachable Deactivation",
+                "mainCode": "*95",
+                "alternateCode": "*66",
+                "enable": true
+              },
+              {
+                "name": "Call Bridge",
+                "mainCode": "*15",
+                "alternateCode": "*67",
+                "enable": true
+              }
+            ]
+          },
+          "callProcessingPolicy": {
+            "callingLineId": {
+              "useGroupCLIDSetting": false,
+              "useGroupName": false,
+              "allowDepartmentCLIDNameOverride": false,
+              "clidPolicy": "Use DN",
+              "enterpriseCallsCLIDPolicy": "Use Extension",
+              "groupCallsCLIDPolicy": "Use Extension",
+              "emergencyClidPolicy": "Use DN",
+              "allowAlternateNumbersForRedirectingIdentity": true,
+              "allowConfigurableCLIDForRedirectingIdentity": true,
+              "blockCallingNameForExternalCalls": false
+            },
+            "callLimits": {
+              "useGroupCallLimitsSetting": false,
+              "useMaxSimultaneousCalls": false,
+              "maxSimultaneousCalls": 10,
+              "useMaxSimultaneousVideoCalls": false,
+              "maxSimultaneousVideoCalls": 5,
+              "useMaxCallTimeForAnsweredCalls": false,
+              "maxCallTimeForAnsweredCallsMinutes": 600,
+              "useMaxCallTimeForUnansweredCalls": false,
+              "maxCallTimeForUnansweredCallsMinutes": 2,
+              "useMaxConcurrentRedirectedCalls": false,
+              "maxConcurrentRedirectedCalls": 3,
+              "useMaxConcurrentFindMeFollowMeInvocations": false,
+              "maxConcurrentFindMeFollowMeInvocations": 3,
+              "useMaxFindMeFollowMeDepth": false,
+              "maxFindMeFollowMeDepth": 3,
+              "maxRedirectionDepth": 10
+            },
+            "media": {
+              "useGroupMediaSetting": true,
+              "mediaPolicySelection": "Use Supported Media Set",
+              "supportedMediaSetName": null
+            },
+            "translationAndRouting": {
+              "useGroupTranslationRoutingSetting": false,
+              "networkUsageSelection": "Force All Calls",
+              "enableEnterpriseExtensionDialing": true,
+              "enforceGroupCallingLineIdentityRestriction": false,
+              "allowEnterpriseGroupCallTypingForPrivateDialingPlan": false,
+              "allowEnterpriseGroupCallTypingForPublicDialingPlan": false,
+              "overrideCLIDRestrictionForPrivateCallCategory": false,
+              "useEnterpriseCLIDForPrivateCallCategory": false
+            },
+            "incomingCallerId": {
+              "useGroupDCLIDSetting": false,
+              "enableDialableCallerID": false
+            }
+          },
+          "extensions": {
+            "broadworks": {
+              "resourceId": "DemoSite"
+            }
+          }
+        }
+        
+
+    + Schema
+
+        {
+          "title": "Retrieve Site resource",
+          "description": "Retrieve Site resource",
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "/base#/definitions/HalResponse"
+            }, {
+              "required": ["_links"]
+            }, {
+              "properties": {
+                "profile": {
+                  "title": "Profile",
+                  "description": "Container for Site profile information.",
+                  "type": "object",
+                  "required": ["siteName", "defaultDomain", "userLimit", "userCount", "callingLineId", "timeZone", "locationDialingCode", "contact", "address"],
+                  "properties": {
+                    "siteName": {
+                      "anyOf":[
+                        { "$ref": "/base#/definitions/SiteName" },
+                        { "type": "null" }
+                      ]
+                    },
+                    "defaultDomain": {
+                      "$ref": "/base#/definitions/Domain"
+                    },
+                    "userLimit": {
+                      "title": "User limit",
+                      "description": "Configured maximum number of users in the Site.",
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 999999
+                    },
+                    "userCount": {
+                      "title": "Users count",
+                      "description": "Number of users in the Site.",
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 999999
+                    },
+                    "callingLineId":{
+                      "title": "Calling line Id",
+                      "description": "Number of users in the Site.",
+                      "type": ["object", "null"],
+                      "required": ["name", "phoneNumber"],
+                      "properties": {
+                        "name": {
+                          "title": "Phone number",
+                          "description": "Site calling line ID phone number.",
+                          "type": ["string", "null"],
+                          "minLength": 1,
+                          "maxLength": 80
+                        },
+                        "phoneNumber": {
+                          "title": "Phone number",
+                          "description": "Site calling line ID phone number.",
+                          "type": ["string", "null"],
+                          "minLength": 1,
+                          "maxLength": 23
+                        }
+                      }
+                    },
+                    "timeZone": {
+                      "title": "Time Zone",
+                      "description": "Time Zone.",
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 127
+                    },
+                    "locationDialingCode": {
+                      "title": "Location dialing code.",
+                      "description": "Site location dialing code.",
+                      "type": ["string", "null"],
+                      "minLength": 1,
+                      "maxLength": 15
+                    },
+                    "contact": {
+                      "title": "Contact",
+                      "description": "Container for contact settings.",
+                      "type": ["object", "null"],
+                      "required": ["name", "phone", "email"],
+                      "properties": {
+                        "name":{
+                          "title": "Name",
+                          "description": "Contact name.",
+                          "type": ["string", "null"],
+                          "minLength": 1,
+                          "maxLength": 30
+                        },
+                        "phone": {
+                          "title": "Name",
+                          "description": "Contact name.",
+                          "type": ["string", "null"],
+                          "minLength": 1,
+                          "maxLength": 30
+                        },
+                        "email":{
+                          "anyOf":[
+                            { "$ref": "/base#/definitions/EmailAddress" },
+                            { "type": "null" }
+                          ]
+                        }
+                      }
+                    },
+                    "address": {
+                      "title": "Address",
+                      "description": "Container for address settings.",
+                      "type": [ "object", "null"],
+                      "required": ["addressLine1", "addressLine2", "city", "stateOrProvince", "zipOrPostalCode", "country"],
+                      "properties": {
+                        "addressLine1": {
+                          "title": "Address line 1",
+                          "description": "Address line 1.",
+                          "type": ["string", "null"],
+                          "minLength": 1,
+                          "maxLength": 80
+                        },
+                        "addressLine2": {
+                          "title": "Address line 2",
+                          "description": "Address line 2.",
+                          "type": ["string", "null"],
+                          "minLength": 1,
+                          "maxLength": 80
+                        },
+                        "city": {
+                          "title": "City",
+                          "description": "City.",
+                          "type": ["string", "null"],
+                          "minLength": 1,
+                          "maxLength": 50
+                        },
+                        "stateOrProvince": {
+                          "title": "State or Province",
+                          "description": "State or Province.",
+                          "type": ["string", "null"],
+                          "minLength": 1,
+                          "maxLength": 50
+                        },
+                        "zipOrPostalCode": {
+                          "title": "Zip or postal code",
+                          "description": "Zip or postal code.",
+                          "type": ["string", "null"],
+                          "minLength": 1,
+                          "maxLength": 50
+                        },
+                        "country": {
+                          "title": "Country",
+                          "description": "Country.",
+                          "type": ["string", "null"],
+                          "minLength": 1,
+                          "maxLength": 50
+                        }
+                      }
+                    }
+                  }
+                },
+                "extensionLength": {
+                  "title": "Extension length settings",
+                  "description": "Container for Site extension length settings.",
+                  "type": "object",
+                  "required": ["min", "max", "default"],
+                  "properties": {
+                    "min": {
+                      "title": "Minimum length of the extension",
+                      "description": "Minimum length of the extension.",
+                      "type": "integer",
+                      "minimum": 2,
+                      "maximum": 20
+                    },
+                    "max": {
+                      "title": "Maximum length of the extension",
+                      "description": "Maximum length of the extension.",
+                      "type": "integer",
+                      "minimum": 2,
+                      "maximum": 20
+                    },
+                    "default": {
+                      "title": "Default length of the extension",
+                      "description": "Default length of the extension.",
+                      "type": "integer",
+                      "minimum": 2,
+                      "maximum": 20
+                    }
+                  }
+                },
+                "passwordRules": {
+                  "title": "Site password rules settings",
+                  "description": "Container for Site password rules settings.",
+                  "type": "object",
+                  "required": ["useRuleLevel", "disallowUserId", "disallowOldPassword", "disallowReversedOldPassword", "digits", "upperCaseLetters", "lowerCaseLetters", "nonAlphanumericCharacters", "length", "loginAttempts", "expirePassword", "loginDisabledNotification", "previousPasswords", "disallowRulesModification"],
+                  "properties": {
+                    "useRuleLevel": {
+                      "title": "User rule level",
+                      "description": "Choices for the Site password rule to decide which type of rules to use.",
+                      "enum": ["System", "Customer", "Site"]
+                    },
+                    "disallowUserId": {
+                      "title": "Disallow User ID",
+                      "description": "Disallow User ID.",
+                      "type": "boolean"
+                    },
+                    "disallowOldPassword": {
+                      "title": "Disallow old password",
+                      "description": "Disallow old password.",
+                      "type": "boolean"
+                    },
+                    "disallowReversedOldPassword": {
+                      "title": "Disallow reversed old password",
+                      "description": "Disallow reversed old password.",
+                      "type": "boolean"
+                    },
+                    "digits": {
+                      "title": "Digits rules",
+                      "description": "Container for digits rules.",
+                      "type": "object",
+                      "required": ["restrict", "minimum"],
+                      "properties": {
+                        "restrict": {
+                          "title": "Restrict",
+                          "description": "Require a minimum number of digits.",
+                          "type": "boolean"
+                        },
+                        "minimum": {
+                          "title": "Minimum",
+                          "description": "Minimum number of required digits.",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 10
+                        }
+                      }
+                    },
+                    "upperCaseLetters": {
+                      "title": "Uppercase letters rules",
+                      "description": "Container for uppercase letters rules.",
+                      "type": "object",
+                      "required": ["restrict", "minimum"],
+                      "properties": {
+                        "restrict": {
+                          "title": "Restrict",
+                          "description": "Require a minimum number of uppercase letters.",
+                          "type": "boolean"
+                        },
+                        "minimum": {
+                          "title": "Minimum",
+                          "description": "Minimum number of required uppercase letters.",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 10
+                        }
+                      }
+                    },
+                    "lowerCaseLetters": {
+                      "title": "Lowercase letters rules",
+                      "description": "Container for lowercase letters rules.",
+                      "type": "object",
+                      "required": ["restrict", "minimum"],
+                      "properties": {
+                        "restrict": {
+                          "title": "Restrict",
+                          "description": "Require a minimum number of lowercase letters.",
+                          "type": "boolean"
+                        },
+                        "minimum": {
+                          "title": "Minimum",
+                          "description": "Minimum number of required lowercase letters.",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 10
+                        }
+                      }
+                    },
+                    "nonAlphanumericCharacters": {
+                      "title": "Non Alphanumeric characters rules",
+                      "description": "Container for nonAlphanumeric characters rules.",
+                      "type": "object",
+                      "required": ["restrict", "minimum"],
+                      "properties": {
+                        "restrict": {
+                          "title": "Restrict",
+                          "description": "Require a minimum number of alphanumeric characters.",
+                          "type": "boolean"
+                        },
+                        "minimum": {
+                          "title": "Minimum",
+                          "description": "Minimum number of required alphanumeric characters.",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 10
+                        }
+                      }
+                    },
+                    "length": {
+                      "title": "Password length rules",
+                      "description": "Container for password length rules.",
+                      "type": "object",
+                      "required": ["minimum"],
+                      "properties": {
+                        "minimum": {
+                          "title": "Minimum",
+                          "description": "Minimum length of the password.",
+                          "type": "integer",
+                          "minimum": 3,
+                          "maximum": 40
+                        }
+                      }
+                    },
+                    "loginAttempts": {
+                      "title": "Login attempts rules",
+                      "description": "Container for login attempts rules.",
+                      "type": "object",
+                      "required": ["restrict"],
+                      "properties": {
+                        "restrict": {
+                          "title": "Restrict",
+                          "description": "Disable login after a maximum number of failed login attempts.",
+                          "type": "boolean"
+                        },
+                        "maximum": {
+                          "title": "Maximum",
+                          "description": "Maximum number of failed login attempts.",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 10
+                        }
+                      }
+                    },
+                    "expirePassword": {
+                      "title": "Password expiration rules",
+                      "description": "Container for password expiration rules.",
+                      "type": "object",
+                      "required": ["restrict"],
+                      "properties": {
+                        "restrict": {
+                          "title": "Restrict",
+                          "description": "Expire password after a number of days.",
+                          "type": "boolean"
+                        },
+                        "numberOfDays": {
+                          "title": "Number of days",
+                          "description": "Days until the password expires.",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 199
+                        }
+                      }
+                    },
+                    "loginDisabledNotification": {
+                      "title": "Login disabled notification settings",
+                      "description": "Container for login disabled notification settings.",
+                      "type": "object",
+                      "required": ["sendEmail", "email"],
+                      "properties": {
+                        "sendEmail": {
+                          "title": "Send email",
+                          "description": "Send email when login is disabled.",
+                          "type": "boolean"
+                        },
+                        "email": {
+                          "anyOf":[
+                            { "$ref": "/base#/definitions/EmailAddress" },
+                            { "type": "null" }
+                          ]
+                        }
+                      }
+                    },
+                    "previousPasswords": {
+                      "title": "Previous passwords rules",
+                      "description": "Container for previous passwords rules.",
+                      "type": "object",
+                      "required": ["restrict", "numberOfPasswords"],
+                      "properties": {
+                        "restrict": {
+                          "title": "Restrict",
+                          "description": "Disallow previous passwords.",
+                          "type": "boolean"
+                        },
+                        "numberOfPasswords": {
+                          "title": "Number of previous passwords",
+                          "description": "Number of previous passwords to keep in history.",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 199
+                        }
+                      }
+                    },
+                    "disallowRulesModification": {
+                      "title": "Disallow password rules",
+                      "description": "Disallow password rules modification.",
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "passcodeRules": {
+                  "title": "Site passcode rules settings",
+                  "description": "Container for Site passcode rules settings.",
+                  "type": "object",
+                  "required": ["useRuleLevel", "repeatedDigits", "disallowRepeatedPatterns", "contiguousSequences", "disallowUserNumber", "disallowReversedUserNumber", "previousPasscodes", "disallowReversedOldPasscode", "length", "loginAttempts", "expirePasscode", "loginDisabledNotification"],
+                  "properties": {
+                    "useRuleLevel": {
+                      "title": "Site passcode rule to decide which type of rules to use",
+                      "description": "Choices for the Site passcode rule to decide which type of rules to use.",
+                      "enum": ["System", "Customer", "Site"]
+                    },
+                    "repeatedDigits": {
+                      "title": "Repeated digits rules",
+                      "description": "Container for repeated digits rules.",
+                      "type": "object",
+                      "required": ["restrict", "maximum"],
+                      "properties": {
+                        "restrict": {
+                          "title": "Restrict",
+                          "description": "Disallow repeated digits.",
+                          "type": "boolean"
+                        },
+                        "maximum": {
+                          "title": "Maximum number of allowed repeated digits",
+                          "description": "Maximum number of allowed repeated digits.",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 6
+                        }
+                      }
+                    },
+                    "disallowRepeatedPatterns": {
+                      "title": "Disallow repeated patterns",
+                      "description": "Disallow repeated patterns.",
+                      "type": "boolean"
+                    },
+                    "contiguousSequences": {
+                      "title": "Contiguous sequences rules",
+                      "description": "Container for contiguous sequences rules.",
+                      "type": "object",
+                      "required": ["restrict", "numberOfAscendingDigits", "numberOfDescendingDigits"],
+                      "properties": {
+                        "restrict": {
+                          "title": "Restrict",
+                          "description": "Disallow contiguous sequences.",
+                          "type": "boolean"
+                        },
+                        "numberOfAscendingDigits": {
+                          "title": "Maximum number of contiguously increasing or decreasing digits allowed in the passcode",
+                          "description": "Maximum number of contiguously increasing or decreasing digits allowed in the passcode.",
+                          "type": "integer",
+                          "minimum": 2,
+                          "maximum": 5
+                        },
+                        "numberOfDescendingDigits": {
+                          "title": "Maximum number of contiguously increasing or decreasing digits allowed in the passcode",
+                          "description": "Maximum number of contiguously increasing or decreasing digits allowed in the passcode.",
+                          "type": "integer",
+                          "minimum": 2,
+                          "maximum": 5
+                        }
+                      }
+                    },
+                    "disallowUserNumber": {
+                      "title": "Disallow user number",
+                      "description": "Disallow user number.",
+                      "type": "boolean"
+                    },
+                    "disallowReversedUserNumber": {
+                      "title": "Disallow reversed user number",
+                      "description": "Disallow reversed user number.",
+                      "type": "boolean"
+                    },
+                    "previousPasscodes": {
+                      "title": "Previous passcodes rules",
+                      "description": "Container for previous passcodes rules.",
+                      "type": "object",
+                      "required": ["restrict", "numberOfPasscodes"],
+                      "properties": {
+                        "restrict": {
+                          "title": "Restrict",
+                          "description": "Disallow old passcode.",
+                          "type": "boolean"
+                        },
+                        "numberOfPasscodes": {
+                          "title": "Number of previous passcodes",
+                          "description": "Number of previous passcodes to keep in history.",
+                          "type": "integer",
+                          "minimum": 2,
+                          "maximum": 10
+                        }
+                      }
+                    },
+                    "disallowReversedOldPasscode": {
+                      "title": "Disallow reversed old passcode",
+                      "description": "Disallow reversed old passcode.",
+                      "type": "boolean"
+                    },
+                    "length": {
+                      "title": "Passcode length rules",
+                      "description": "Container for passcode length rules.",
+                      "type": "object",
+                      "required": ["minimum", "maximum"],
+                      "properties": {
+                        "minimum": {
+                          "title": "Minimum",
+                          "description": "Minimum length of portal passcode.",
+                          "type": "integer",
+                          "minimum": 2,
+                          "maximum": 15
+                        },
+                        "maximum": {
+                          "title": "Maximum",
+                          "description": "Maximum length of portal passcode.",
+                          "type": "integer",
+                          "minimum": 3,
+                          "maximum": 30
+                        }
+                      }
+                    },
+                    "loginAttempts": {
+                      "title": "Login attempts rules",
+                      "description": "Container for login attempts rules.",
+                      "type": "object",
+                      "required": ["restrict"],
+                      "properties": {
+                        "restrict": {
+                          "title": "Restrict",
+                          "description": "Disable login after a maximum number of login attempts.",
+                          "type": "boolean"
+                        },
+                        "maximum": {
+                          "title": "Maximum",
+                          "description": "Maximum allowed portal failed login attempts.",
+                          "type": "integer",
+                          "minimum": 2,
+                          "maximum": 10
+                        }
+                      }
+                    },
+                    "expirePasscode": {
+                      "title": "Login attempts rules",
+                      "description": "Container for login attempts rules.",
+                      "type": "object",
+                      "required": ["restrict"],
+                      "properties": {
+                        "restrict": {
+                          "title": "Restrict",
+                          "description": "Expire passcode after a number of days.",
+                          "type": "boolean"
+                        },
+                        "numberOfDays": {
+                          "title": "Passcode expiration days",
+                          "description": "Portal passcode expiration days.",
+                          "type": "integer",
+                          "minimum": 15,
+                          "maximum": 180
+                        }
+                      }
+                    },
+                    "loginDisabledNotification": {
+                      "title": "Login disabled notification settings",
+                      "description": "Container for login disabled notification settings.",
+                      "type": "object",
+                      "required": ["sendEmail", "email"],
+                      "properties": {
+                        "sendEmail": {
+                          "title": "Send email",
+                          "description": "Send email when login is disabled.",
+                          "type": "boolean"
+                        },
+                        "email": {
+                          "anyOf":[
+                            { "$ref": "/base#/definitions/EmailAddress" },
+                            { "type": "null" }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "featureAccessCodes": {
+                  "title": "Container for Site feature access codes settings",
+                  "description": "Container for Site feature access codes settings.",
+                  "type": "object",
+                  "required": ["speedDialPrefix", "useFeatureAccessCodeLevel", "codes"],
+                  "properties": {
+                    "speedDialPrefix": {
+                      "title": "Speed Dial prefix",
+                      "description": "Speed Dial prefix.",
+                      "type": ["string", "null"],
+                      "pattern": ":/^[A-D0-9\*\#]+$/)",
+                      "minLength": 1,
+                      "maxLength": 2
+                    },
+                    "useFeatureAccessCodeLevel": {
+                      "title": "Access Code Level",
+                      "description": "Feature Access Code Level defining group policy how Feature Access Codes will be used by a Site.",
+                      "enum": ["Customer", "Site"]
+                    },
+                    "codes": {
+                      "title": "List of feature access codes",
+                      "description": "List of feature access codes.",
+                      "type": "array",
+                      "items": {
+                        "title": "Single feature access code settings",
+                        "description": "Container for a single feature access code settings.",
+                        "type": "object",
+                        "required": ["name", "mainCode", "alternateCode", "enable"],
+                        "properties": {
+                          "name": {
+                            "title": "Feature Access Code Name",
+                            "description": "Feature Access Code Name.",
+                            "type": "string"
+                          },
+                          "mainCode": {
+                            "title": "Feature Access Code",
+                            "description": "Feature Access Code.",
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 5
+                          },
+                          "alternateCode": {
+                            "title": "Feature Access Code",
+                            "description": "Feature Access Code.",
+                            "type": ["string", "null"],
+                            "minLength": 1,
+                            "maxLength": 5
+                          },
+                          "enable": {
+                            "title": "Enable Feature Access Codes",
+                            "description": "Enable Feature Access Codes.",
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "callProcessingPolicy": {
+                  "title": "Site call processing policy settings",
+                  "description": "Container for Site call processing policy settings.",
+                  "type": "object",
+                  "required": ["callingLineId", "media", "callLimits", "translationAndRouting", "incomingCallerId"],
+                  "properties": {
+                    "callingLineId": {
+                      "title": "Calling Line Id",
+                      "description": "Container for Calling Line Id policy settings.",
+                      "type": "object",
+                      "required": ["useGroupCLIDSetting", "useGroupName", "allowDepartmentCLIDNameOverride", "clidPolicy", "enterpriseCallsCLIDPolicy", "groupCallsCLIDPolicy", "emergencyClidPolicy", "allowAlternateNumbersForRedirectingIdentity", "allowConfigurableCLIDForRedirectingIdentity", "blockCallingNameForExternalCalls"],
+                      "properties": {
+                        "useGroupCLIDSetting": {
+                          "title": "Use Group Calling Line Id",
+                          "description": "Use Group Calling Line Id Policy.",
+                          "type": "boolean"
+                        },
+                        "useGroupName": {
+                          "title": "Use group name",
+                          "description": "Use group name for Calling Line Identity.",
+                          "type": "boolean"
+                        },
+                        "allowDepartmentCLIDNameOverride": {
+                          "title": "Allow Department Name Override",
+                          "description": "Allow Department Name Override.",
+                          "type": "boolean"
+                        },
+                        "clidPolicy": {
+                          "title": "Calling Line ID Policy Selections",
+                          "description": "Calling Line ID Policy Selections.",
+                          "enum": ["Use DN", "Use Configurable CLID", "Use Group CLID"]
+                        },
+                        "enterpriseCallsCLIDPolicy": {
+                          "title": "Internal Call CLID Policy applicable to Customer",
+                          "description": "Internal Call CLID Policy applicable to Customer.",
+                          "enum": ["Use Extension", "Use Location Code plus Extension", "Use External Calls Policy"]
+                        },
+                        "groupCallsCLIDPolicy": {
+                          "title": "Internal Call CLID Policy applicable to Site",
+                          "description": "Internal Call CLID Policy applicable to Site.",
+                          "enum": ["Use Extension", "Use Location Code plus Extension", "Use External Calls Policy"]
+                        },
+                        "emergencyClidPolicy": {
+                          "title": "Emergency Calling Line ID Policy Selections",
+                          "description": "Emergency Calling Line ID Policy Selections.",
+                          "enum": ["Use DN", "Use Configurable CLID", "Use Group CLID"]
+                        },
+                        "allowAlternateNumbersForRedirectingIdentity": {
+                          "title": "Allow Alternate Numbers for Redirecting Identity",
+                          "description": "Allow Alternate Numbers for Redirecting Identity.",
+                          "type": "boolean"
+                        },
+                        "allowConfigurableCLIDForRedirectingIdentity": {
+                          "title": "Allow Configurable CLID for Redirecting Identity",
+                          "description": "Allow Configurable CLID for Redirecting Identity.",
+                          "type": "boolean"
+                        },
+                        "blockCallingNameForExternalCalls": {
+                          "title": "Block Calling Name for External Calls",
+                          "description": "Block Calling Name for External Calls.",
+                          "type": "boolean"
+                        }
+                      }
+                    },
+                    "media": {
+                      "title": "Media policy settings",
+                      "description": "Container for Media policy settings.",
+                      "type": "object",
+                      "required": ["useGroupMediaSetting", "mediaPolicySelection", "supportedMediaSetName"],
+                      "properties": {
+                        "useGroupMediaSetting": {
+                          "title": "Use Group Media Policy",
+                          "description": "Use Group Media Policy.",
+                          "type": "boolean"
+                        },
+                        "mediaPolicySelection": {
+                          "title": "Media Policy Selections",
+                          "description": "Media Policy Selections.",
+                          "enum": ["Use Uncompressed Codec", "Use Supported Media Set", "No Restrictions"]
+                        },
+                        "supportedMediaSetName": {
+                          "title": "Media Set name",
+                          "description": "Media Set name.",
+                          "type": ["string", "null"],
+                          "minLength": 1,
+                          "maxLength": 80
+                        }
+                      }
+                    },
+                    "callLimits": {
+                      "title": "Call limits policy settings",
+                      "description": "Container for call limits policy settings.",
+                      "type": "object",
+                      "required": ["useGroupCallLimitsSetting", "useMaxSimultaneousCalls", "maxSimultaneousCalls", "useMaxSimultaneousVideoCalls", "maxSimultaneousVideoCalls", "useMaxCallTimeForAnsweredCalls", "maxCallTimeForAnsweredCallsMinutes", "useMaxCallTimeForUnansweredCalls", "maxCallTimeForUnansweredCallsMinutes", "useMaxConcurrentRedirectedCalls", "maxConcurrentRedirectedCalls", "useMaxConcurrentFindMeFollowMeInvocations", "maxConcurrentFindMeFollowMeInvocations", "useMaxFindMeFollowMeDepth", "maxFindMeFollowMeDepth", "maxRedirectionDepth"],
+                      "properties": {
+                        "useGroupCallLimitsSetting": {
+                          "title": "Use Group Call Limits Policy",
+                          "description": "Use Group Call Limits Policy.",
+                          "type": "boolean"
+                        },
+                        "useMaxSimultaneousCalls": {
+                          "title": "Enable Maximum Number of Concurrent Calls",
+                          "description": "Enable Maximum Number of Concurrent Calls.",
+                          "type": "boolean"
+                        },
+                        "maxSimultaneousCalls": {
+                          "title": "Maximum Number of Simultaneous Calls",
+                          "description": "Maximum Number of Simultaneous Calls.",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 999999
+                        },
+                        "useMaxSimultaneousVideoCalls": {
+                          "title": "Enable Maximum Number of Concurrent Calls",
+                          "description": "Enable Maximum Number of Concurrent Calls.",
+                          "type": "boolean"
+                        },
+                        "maxSimultaneousVideoCalls": {
+                          "title": "Maximum Number of Simultaneous Calls",
+                          "description": "Maximum Number of Simultaneous Calls.",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 999999
+                        },
+                        "useMaxCallTimeForAnsweredCalls": {
+                          "title": "Enable Maximum Duration for Answered Calls",
+                          "description": "Enable Maximum Duration for Answered Calls.",
+                          "type": "boolean"
+                        },
+                        "maxCallTimeForAnsweredCallsMinutes": {
+                          "title": "Maximum Call Time for Answered Calls",
+                          "description": "Maximum Call Time for Answered Calls.",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 2880
+                        },
+                        "useMaxCallTimeForUnansweredCalls": {
+                          "title": "Enable Maximum Duration for Unanswered Calls",
+                          "description": "Enable Maximum Duration for Unanswered Calls.",
+                          "type": "boolean"
+                        },
+                        "maxCallTimeForUnansweredCallsMinutes": {
+                          "title": "Maximum Call Time for Unanswered Calls",
+                          "description": "Maximum Call Time for Unanswered Calls.",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 2880
+                        },
+                        "useMaxConcurrentRedirectedCalls": {
+                          "title": "Enable Maximum Number of Concurrent Redirected Calls",
+                          "description": "Enable Maximum Number of Concurrent Redirected Calls.",
+                          "type": "boolean"
+                        },
+                        "maxConcurrentRedirectedCalls": {
+                          "title": "Maximum Number of Concurrent Redirected Calls",
+                          "description": "Maximum Number of Concurrent Redirected Calls.",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 999999
+                        },
+                        "useMaxConcurrentFindMeFollowMeInvocations": {
+                          "title": "Enable Maximum Number of Concurrent Find Me/Follow Me Invocations",
+                          "description": "Enable Maximum Number of Concurrent Find Me/Follow Me Invocations.",
+                          "type": "boolean"
+                        },
+                        "maxConcurrentFindMeFollowMeInvocations": {
+                          "title": "Maximum Number of Concurrent Find Me/Follow Me Invocations",
+                          "description": "Maximum Number of Concurrent Find Me/Follow Me Invocations.",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 999999
+                        },
+                        "useMaxFindMeFollowMeDepth": {
+                          "title": "Enable Maximum Find Me/Follow Me Depth",
+                          "description": "Enable Maximum Find Me/Follow Me Depth.",
+                          "type": "boolean"
+                        },
+                        "maxFindMeFollowMeDepth": {
+                          "title": "Maximum Number of Find Me/Follow Me Depth",
+                          "description": "Maximum Number of Find Me/Follow Me Depth.",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        },
+                        "maxRedirectionDepth": {
+                          "title": "Maximum Number of Redirections Depth",
+                          "description": "Maximum Number of Redirections Depth.",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 100
+                        }
+                      }
+                    },
+                    "translationAndRouting": {
+                      "title": "Translation and Routing settings",
+                      "description": "Container for Translation and Routing settings.",
+                      "type": "object",
+                      "required": ["useGroupTranslationRoutingSetting", "networkUsageSelection", "enableEnterpriseExtensionDialing", "enforceGroupCallingLineIdentityRestriction", "allowEnterpriseGroupCallTypingForPrivateDialingPlan", "allowEnterpriseGroupCallTypingForPublicDialingPlan", "overrideCLIDRestrictionForPrivateCallCategory", "useEnterpriseCLIDForPrivateCallCategory"],
+                      "properties": {
+                        "useGroupTranslationRoutingSetting": {
+                          "title": "Use Group Translation and Routing Policy",
+                          "description": "Use Group Translation and Routing Policy.",
+                          "type": "boolean"
+                        },
+                        "networkUsageSelection": {
+                          "title": "Network Usage types",
+                          "description": "Network Usage types.",
+                          "enum": ["Force All Calls", "Force All Except Extension and Location Calls", "Do Not Force Enterprise and Group Calls"]
+                        },
+                        "enableEnterpriseExtensionDialing": {
+                          "title": "Enable Enterprise Extension Dialing",
+                          "description": "Enable Enterprise Extension Dialing.",
+                          "type": "boolean"
+                        },
+                        "enforceGroupCallingLineIdentityRestriction": {
+                          "title": "Enforce Group Calling Line Identity Restriction",
+                          "description": "Enforce Group Calling Line Identity Restriction.",
+                          "type": "boolean"
+                        },
+                        "allowEnterpriseGroupCallTypingForPrivateDialingPlan": {
+                          "title": "Allow Enterprise/Group Call Typing For Private Dialing Plan",
+                          "description": "Allow Enterprise/Group Call Typing For Private Dialing Plan.",
+                          "type": "boolean"
+                        },
+                        "allowEnterpriseGroupCallTypingForPublicDialingPlan": {
+                          "title": "Allow Enterprise/Group Call Typing For Public Dialing Plan",
+                          "description": "Allow Enterprise/Group Call Typing For Public Dialing Plan.",
+                          "type": "boolean"
+                        },
+                        "overrideCLIDRestrictionForPrivateCallCategory": {
+                          "title": "Override CLID Restriction For Private Call Category",
+                          "description": "Override CLID Restriction For Private Call Category.",
+                          "type": "boolean"
+                        },
+                        "useEnterpriseCLIDForPrivateCallCategory": {
+                          "title": "Use Enterprise CLID For Private Call Category",
+                          "description": "Use Enterprise CLID For Private Call Category.",
+                          "type": "boolean"
+                        }
+                      }
+                    },
+                    "incomingCallerId": {
+                      "title": "Incoming Caller ID settings",
+                      "description": "Container for Incoming Caller ID settings.",
+                      "type": "object",
+                      "required": ["useGroupDCLIDSetting", "enableDialableCallerID"],
+                      "properties": {
+                        "useGroupDCLIDSetting": {
+                          "title": "Use Group Dialable Caller ID Policy",
+                          "description": "Use Group Dialable Caller ID Policy.",
+                          "type": "boolean"
+                        },
+                        "enableDialableCallerID": {
+                          "title": "Enable Dialable Caller ID",
+                          "description": "Enable Dialable Caller ID.",
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": ["profile", "extensionLength", "passwordRules", "featureAccessCodes", "callProcessingPolicy"]
+            }
+          ]
+        }
+
+### Modify a Site [PUT]
+Modify a Site resource.
+
++ Links
+    + self - Self link.
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+
+        {
+          "_links": {
+            "self": {
+              "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite"
+            }
+          },
+          "customerId": "DemoCustomer",
+          "siteId": "DemoSite"
+        }
+        
+
+    + Schema
+
+        {
+          "title": "Modify Site resource",
+          "description": "Modify Site resource",
+          "allOf": [
+            {
+              "$ref": "/base#/definitions/HalResponse"
+            }, {
+              "required": ["_links"]
+            }, {
+              "properties": {
+                "customerId": {
+                  "$ref": "/base#/definitions/CustomerId"
+                },
+                "siteId": {
+                  "$ref": "/base#/definitions/SiteId"
+                }
+              },
+              "required": ["customerId", "siteId"]
+            }
+          ]
         }
 
 # Group System Time Zones
