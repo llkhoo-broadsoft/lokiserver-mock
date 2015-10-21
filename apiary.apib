@@ -606,6 +606,7 @@ Retrieve Site resource.
             }
           },
           "featureAccessCodes": {
+            "speedDialPrefix": "#",
             "useFeatureAccessCodeLevel": "Site",
             "codes": [
               {
@@ -1272,7 +1273,7 @@ Retrieve Site resource.
                       "title": "Speed Dial prefix",
                       "description": "Speed Dial prefix.",
                       "type": ["string", "null"],
-                      "pattern": ":/^[A-D0-9\*\#]+$/)",
+                      "pattern": "^[A-D0-9\\*\\#]+$",
                       "minLength": 1,
                       "maxLength": 2
                     },
