@@ -1684,6 +1684,80 @@ Modify a Site resource.
           ]
         }
 
+## Restore default Site feature access codes  [/api/customers/{+customerId}/sites/{+siteId}/restoreDefaultFeatureAccessCodes]
+Restore default Site feature access codes.
+
+### URI Template Parameters JSON Schema
+    {
+      "title": "Restore default Site feature access codes",
+      "description": "Restore default Site feature access codes",
+      "type": "object",
+      "properties": {
+        "customerId": { "$ref": "/base#/definitions/CustomerId" },
+        "siteId": { "$ref": "/base#/definitions/SiteId" }
+      },
+      "required": ["customerId", "siteId"]
+    }
+
+### Restore default Site feature access codes [POST]
+Restore default Site feature access codes.
+
++ Links
+    + self - Self link.
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+
+        {
+          "_links": {
+            "self": {
+              "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/restoreDefaultFeatureAccessCodes"
+            },
+            "up": {
+              "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite"
+            },
+            "ls:customer": {
+              "href": "http://uc.example.com/api/customers/DemoCustomer"
+            }
+          },
+          "customerId": "DemoCustomer",
+          "siteId": "DemoSite"
+        }
+        
+
+    + Schema
+
+        {
+          "title": "Restore default Site feature access codes",
+          "description": "Restore default Site feature access codes",
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "/base#/definitions/HalResponse"
+            },
+            {
+              "required": ["_links" ]
+            },
+            {
+              "properties": {
+                "customerId": { "$ref": "/base#/definitions/CustomerId" },
+                "siteId": { "$ref": "/base#/definitions/SiteId" }
+              },
+              "required": ["customerId", "siteId"]
+            }
+          ]
+        }
+
 # Group System Time Zones
 Following resources belong to System Time Zones entity.
 
