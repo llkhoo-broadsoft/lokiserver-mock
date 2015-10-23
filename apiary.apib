@@ -1758,8 +1758,8 @@ Restore default Site feature access codes.
           ]
         }
 
-# Group System Time Zones
-Following resources belong to System Time Zones entity.
+# Group System
+Following resources belong to System.
 
 ## System Time Zones [/api/time-zones]
 Represents time zones list resource.
@@ -1786,22 +1786,70 @@ Retrieve system Time Zones list.
         {
             "_links": {
                 "self": {
-                    "href": "http://uc.example.com/api/time-zones"
+                    "href": "http://192.168.0.231:8340/loki-services/network-elements/broadworks/asp1_r21/time-zones"
                 }
             },
-            "serverTimeZone": "America/New_York",
-            "timeZones": {
-                "America/New_York": {
-                    "name": "America/New_York",
-                    "displayName": "(GMT-04:00) (US) Eastern Time"
+            "serverTimeZone": "Europe/Bucharest",
+            "timeZoneTable": {
+                "America/St_Johns": {
+                    "name": "America/St_Johns",
+                    "displayName": "(GMT-02:30) (Canada) Newfoundland"
+                },
+                "America/Halifax": {
+                    "name": "America/Halifax",
+                    "displayName": "(GMT-03:00) (Canada) Atlantic Time"
                 },
                 "America/Montreal": {
                     "name": "America/Montreal",
                     "displayName": "(GMT-04:00) (Canada) Eastern Time"
+                },
+                "America/New_York": {
+                    "name": "America/New_York",
+                    "displayName": "(GMT-04:00) (US) Eastern Time"
+                },
+                "America/Indianapolis": {
+                    "name": "America/Indianapolis",
+                    "displayName": "(GMT-04:00) US Indiana"
+                },
+                "America/Winnipeg": {
+                    "name": "America/Winnipeg",
+                    "displayName": "(GMT-05:00) (Canada) Central Time"
+                },
+                "America/Chicago": {
+                    "name": "America/Chicago",
+                    "displayName": "(GMT-05:00) (US) Central Time"
+                },
+                "America/Edmonton": {
+                    "name": "America/Edmonton",
+                    "displayName": "(GMT-06:00) (Canada) Mountain Time"
+                },
+                "America/Denver": {
+                    "name": "America/Denver",
+                    "displayName": "(GMT-06:00) (US) Mountain Time"
+                },
+                "America/Vancouver": {
+                    "name": "America/Vancouver",
+                    "displayName": "(GMT-07:00) (Canada) Pacific Time"
+                },
+                "America/Los_Angeles": {
+                    "name": "America/Los_Angeles",
+                    "displayName": "(GMT-07:00) (US) Pacific Time"
+                },
+                "America/Phoenix": {
+                    "name": "America/Phoenix",
+                    "displayName": "(GMT-07:00) US Arizona"
+                },
+                "America/Anchorage": {
+                    "name": "America/Anchorage",
+                    "displayName": "(GMT-08:00) US Alaska"
+                },
+                "Pacific/Honolulu": {
+                    "name": "Pacific/Honolulu",
+                    "displayName": "(GMT-10:00) US Hawaii"
                 }
-            }
+            },
+            "ne_id": "asp1_r21"
         }
-        
 
     + Schema
 
