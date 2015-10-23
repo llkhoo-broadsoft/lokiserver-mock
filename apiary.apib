@@ -9,6 +9,319 @@ See real API on [http://docs.lokiserver.apiary.io](http://docs.lokiserver.apiary
 # Group Site Services 
 Following resources belong to Site Services.
 
+## Site services resource [/api/customers/{+customerId}/sites/{+siteId}/services]
+Represents Site services resource.
+
+### URI Template Parameters JSON Schema
+    {
+      "title": "Site services URI template parameters",
+      "description": "Site services URI template parameters",
+      "type": "object",
+      "properties": {
+        "customerId": { "$ref": "/base#/definitions/CustomerId" },
+        "siteId": { "$ref": "/base#/definitions/SiteId" }
+      },
+      "required": ["customerId", "siteId"]
+    }
+
+
+### Retrieve Site services resource [GET]
+Retrieve Site services resource.
+
++ Links
+    + self - Self link.
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+
+        {
+          "_links": {
+            "self": {
+              "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/services"
+            },
+            "up": {
+              "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite"
+            },
+            "ls:customer": {
+              "href": "http://uc.example.com/api/customers/DemoCustomer"
+            },
+            "ls:site-services": [
+              {
+                "title" : "Auto Attendant",
+                "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/services/auto-attendant"
+              }
+            ],
+            "ls:site-service-packs": [
+              {
+                "href": "http://uc.example.com/api/customers/DemoCustomer/service-packs/Standard"
+              }
+            ]
+          },
+          "customerId": "DemoCustomer",
+          "siteId": "DemoSite",
+          "_embedded": {
+            "ls:site-service-packs": [
+              {
+                "_links": {
+                  "self": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/service-packs/Standard"
+                  },
+                  "collection": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer/service-packs"
+                  },
+                  "ls:customer": {
+                    "href": "http://uc.example.com/api/customers/DemoCustomer"
+                  }
+                },
+                "customerId": "DemoCustomer",
+                "name": "Standard",
+                "authorized": true,
+                "assigned": true,
+                "allowed": {
+                  "unlimited": true
+                },
+                "allocated": {
+                  "unlimited": false,
+                  "quantity": 10
+                },
+                "usage": 2,
+                "description": "Demo service pack"
+              }
+            ]
+          },
+          "siteServices": {
+            "Auto Attendant": {
+              "name": "Auto Attendant",
+              "authorized": true,
+              "assigned": true,
+              "allowed": {
+                "unlimited": false,
+                "quantity": 10
+              },
+              "allocated": {
+                "unlimited": false,
+                "quantity": 10
+              },
+              "usage": 2,
+              "licensed": true
+            }
+          },
+          "userServices": {
+            "Advice Of Charge": {
+              "name": "Advice Of Charge",
+              "authorized": true,
+              "assigned": true,
+              "allowed": {
+                "unlimited": false,
+                "quantity": 10
+              },
+              "allocated": {
+                "unlimited": false,
+                "quantity": 10
+              },
+              "usage": 2,
+              "licensed": true,
+              "userAssignable": true,
+              "siteServiceAssignable": true
+            }
+          }
+        }
+
+    + Schema
+
+        {
+          "title": "Retrieve Site services resource",
+          "description": "Retrieve Site services resource",
+          "type": "object",
+          "allOf": [
+            { "$ref": "/base#/definitions/HalResponse" },
+            { "required": ["_links"] },
+            {
+              "properties": {
+                "customerId": { "$ref": "/base#/definitions/CustomerId" },
+                "siteId": { "$ref": "/base#/definitions/SiteId" },
+                "siteServices": {
+                  "title": "Authorized Site services",
+                  "description": "Container for authorized Site services.",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "patternProperties": {
+                    "[a-zA-Z0-9 ]+" : {
+                      "title": "Service information",
+                      "description": "Container for Service information.",
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": ["name", "authorized", "assigned", "allowed", "allocated", "usage", "licensed"],
+                      "properties": {
+                        "name": {
+                          "title": "Service name",
+                          "description": "Service name.",
+                          "type": "string"
+                        },
+                        "authorized": {
+                          "title": "Service authorized to the Site",
+                          "description": "Is the Service authorized to the Site.",
+                          "type": "boolean"
+                        },
+                        "assigned": {
+                          "title": "Is the Service assigned to the Site",
+                          "description": "Is the Service assigned to the Site.",
+                          "type": "boolean"
+                        },
+                        "allowed": {
+                          "title": "Service allowed settings",
+                          "description": "Container for Service allowed settings.",
+                          "type": "object",
+                          "required": ["unlimited"],
+                          "properties": {
+                            "unlimited": {
+                              "title": "Flag that specifies if Service is allowed in unlimited quantity",
+                              "description": "Flag that specifies if the Service is allowed in unlimited quantity.",
+                              "type": "boolean"
+                            },
+                            "quantity": {
+                              "title": "Number of allowed Service assignments",
+                              "description": "Number of allowed Service assignments in Site.",
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "allocated": {
+                          "title": "Allocated settings",
+                          "description": "Container for Service allocated settings.",
+                          "type": ["object","null"],
+                          "required": ["unlimited"],
+                          "properties": {
+                            "unlimited": {
+                              "title": "Flag that specifies if the Service is allocated in unlimited quantity",
+                              "description": "Flag that specifies if the Service is allocated in unlimited quantity.",
+                              "type": "boolean"
+                            },
+                            "quantity": {
+                              "title": "Number of allocated Service assignments",
+                              "description": "Number of allocated Service assignments in Site.",
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "usage": {
+                          "title": "Number of Service assignments in Site",
+                          "description": "Number of Service assignments in Site.",
+                          "type": "integer"
+                        },
+                        "licensed": {
+                          "title": "Flag that specifies if the Service is licensed",
+                          "description": "Flag that specifies if the Service is licensed.",
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "userServices": {
+                  "title": "Authorized User services",
+                  "description": "Container for authorized User services in Site.",
+                  "type": "object",
+                  "additionalProperties": false,
+                  "patternProperties": {
+                    "[a-zA-Z0-9 ]+": {
+                      "title": "Service information",
+                      "description": "Container for Service information.",
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": ["name", "authorized", "assigned", "allowed", "allocated", "usage", "licensed", "userAssignable", "siteServiceAssignable"],
+                      "properties": {
+                        "name": {
+                          "title": "Service name",
+                          "description": "Service name.",
+                          "type": "string"
+                        },
+                        "authorized": {
+                          "title": "Service authorized to the Site",
+                          "description": "Is the Service authorized to the Site.",
+                          "type": "boolean"
+                        },
+                        "assigned": {
+                          "title": "Is the Service assigned",
+                          "description": "Is the Service assigned.",
+                          "type": "boolean"
+                        },
+                        "allowed": {
+                          "title": "Service allowed settings",
+                          "description": "Container for Service allowed settings.",
+                          "type": "object",
+                          "required": ["unlimited"],
+                          "properties": {
+                            "unlimited": {
+                              "title": "Flag that specifies if Service is allowed in unlimited quantity",
+                              "description": "Flag that specifies if the Service is allowed in unlimited quantity.",
+                              "type": "boolean"
+                            },
+                            "quantity": {
+                              "title": "Number of allowed Service assignments",
+                              "description": "Number of allowed Service assignments.",
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "allocated": {
+                          "title": "Allocated settings",
+                          "description": "Container for Service allocated settings.",
+                          "type": "object",
+                          "required": ["unlimited"],
+                          "properties": {
+                            "unlimited": {
+                              "title": "Flag that specifies if the Service is allocated in unlimited quantity",
+                              "description": "Flag that specifies if the Service is allocated in unlimited quantity.",
+                              "type": "boolean"
+                            },
+                            "quantity": {
+                              "title": "Number of allocated Service assignments",
+                              "description": "Number of allocated Service assignments.",
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "usage": {
+                          "title": "Number of Service assignments",
+                          "description": "Number of Service assignments.",
+                          "type": "integer"
+                        },
+                        "licensed": {
+                          "title": "Flag that specifies if the Service is licensed",
+                          "description": "Flag that specifies if the Service is licensed.",
+                          "type": "boolean"
+                        },
+                        "userAssignable": {
+                          "title": "Flag that specifies if the Service is assignable to a normal User",
+                          "description": "Flag that specifies if the Service is assignable to a normal User.",
+                          "type": "boolean"
+                        },
+                        "siteServiceAssignable": {
+                          "title": "Flag that specifies if the Service is assignable to a Site service",
+                          "description": "Flag that specifies if the Service is assignable to a Site service.",
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": ["customerId", "siteId", "siteServices", "userServices"]
+            }
+          ]
+        }
+
 # Group Site 
 Following resources belong to Site entity.
 ## Customer’s Sites resource [/api/customers/{+customerId}/sites]
