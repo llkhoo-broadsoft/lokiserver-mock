@@ -1684,21 +1684,6 @@ Modify a Site resource.
           ]
         }
 
-## Restore default Site feature access codes  [/api/customers/{+customerId}/sites/{+siteId}/restoreDefaultFeatureAccessCodes]
-Restore default Site feature access codes.
-
-### URI Template Parameters JSON Schema
-    {
-      "title": "Restore default Site feature access codes",
-      "description": "Restore default Site feature access codes",
-      "type": "object",
-      "properties": {
-        "customerId": { "$ref": "/base#/definitions/CustomerId" },
-        "siteId": { "$ref": "/base#/definitions/SiteId" }
-      },
-      "required": ["customerId", "siteId"]
-    }
-
 ### Restore default Site feature access codes [POST]
 Restore default Site feature access codes.
 
@@ -1758,6 +1743,20 @@ Restore default Site feature access codes.
           ]
         }
 
+## Restore default Site feature access codes  [/api/customers/{+customerId}/sites/{+siteId}/restoreDefaultFeatureAccessCodes]
+
+### URI Template Parameters JSON Schema
+    {
+      "title": "Site resource URI template parameters",
+      "description": "Site resource URI template parameters",
+      "type": "object",
+      "properties": {
+        "customerId": { "$ref": "/base#/definitions/CustomerId" },
+        "siteId": { "$ref": "/base#/definitions/SiteId" }
+      },
+      "required": ["customerId", "siteId"]
+    }
+
 # Group System
 Following resources belong to System.
 
@@ -1786,11 +1785,11 @@ Retrieve system Time Zones list.
         {
             "_links": {
                 "self": {
-                    "href": "http://192.168.0.231:8340/loki-services/network-elements/broadworks/asp1_r21/time-zones"
+                    "href": "http://uc.example.com/api/time-zones"
                 }
             },
-            "serverTimeZone": "Europe/Bucharest",
-            "timeZoneTable": {
+            "serverTimeZone": "America/New_York",
+            "timeZones": {
                 "America/St_Johns": {
                     "name": "America/St_Johns",
                     "displayName": "(GMT-02:30) (Canada) Newfoundland"
@@ -1847,8 +1846,7 @@ Retrieve system Time Zones list.
                     "name": "Pacific/Honolulu",
                     "displayName": "(GMT-10:00) US Hawaii"
                 }
-            },
-            "ne_id": "asp1_r21"
+            }
         }
 
     + Schema
