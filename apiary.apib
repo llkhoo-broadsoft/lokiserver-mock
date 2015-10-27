@@ -1684,6 +1684,20 @@ Modify a Site resource.
           ]
         }
 
+## Restore default Site feature access codes  [/api/customers/{+customerId}/sites/{+siteId}/restoreDefaultFeatureAccessCodes]
+
+### URI Template Parameters JSON Schema
+    {
+      "title": "Site resource URI template parameters",
+      "description": "Site resource URI template parameters",
+      "type": "object",
+      "properties": {
+        "customerId": { "$ref": "/base#/definitions/CustomerId" },
+        "siteId": { "$ref": "/base#/definitions/SiteId" }
+      },
+      "required": ["customerId", "siteId"]
+    }
+
 ### Restore default Site feature access codes [POST]
 Restore default Site feature access codes.
 
@@ -1693,7 +1707,7 @@ Restore default Site feature access codes.
 + Request (application/json)
 
     + Headers
-        Transaction-Id: 1380080943120
+        Transaction-Id: 1380080943120z
 
 
 + Response 200 (application/hal+json)
@@ -1707,12 +1721,6 @@ Restore default Site feature access codes.
           "_links": {
             "self": {
               "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/restoreDefaultFeatureAccessCodes"
-            },
-            "up": {
-              "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite"
-            },
-            "ls:customer": {
-              "href": "http://uc.example.com/api/customers/DemoCustomer"
             }
           },
           "customerId": "DemoCustomer",
@@ -1742,20 +1750,6 @@ Restore default Site feature access codes.
             }
           ]
         }
-
-## Restore default Site feature access codes  [/api/customers/{+customerId}/sites/{+siteId}/restoreDefaultFeatureAccessCodes]
-
-### URI Template Parameters JSON Schema
-    {
-      "title": "Site resource URI template parameters",
-      "description": "Site resource URI template parameters",
-      "type": "object",
-      "properties": {
-        "customerId": { "$ref": "/base#/definitions/CustomerId" },
-        "siteId": { "$ref": "/base#/definitions/SiteId" }
-      },
-      "required": ["customerId", "siteId"]
-    }
 
 # Group System
 Following resources belong to System.
