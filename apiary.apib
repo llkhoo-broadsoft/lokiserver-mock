@@ -25,8 +25,8 @@ Represents Site services resource.
     }
 
 
-### Retrieve Site services resource [GET]
-Retrieve Site services resource.
+### Retrieve Site services [GET]
+Retrieve Site services.
 
 + Links
     + self - Self link.
@@ -148,6 +148,98 @@ Retrieve Site services resource.
             { "required": ["_links"] },
             {
               "properties": {
+                "_embedded": {
+                  "title": "Embedded",
+                  "description": "Embedded.",
+                  "type":"object",
+                  "properties": {
+                    "ls:site-service-packs": {
+                      "title": "List of Service Packs assigned to the Site",
+                      "description": "List of Service Packs assigned to the Site.",
+                      "type": "array",
+                      "items": {
+                        "title": "Service packs",
+                        "description": "Service pack.",
+                        "type": "object",
+                        "allOf": [
+                          { "$ref": "/base#/definitions/HalResponse" },
+                          { "required": ["_links"] },
+                          {
+                            "properties": {
+                              "customerId": { "$ref": "/base#/definitions/CustomerId" },
+                              "name": {
+                                "title": "Service Pack name",
+                                "description": "Service Pack name.",
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 80
+                              },
+                              "authorized": {
+                                "title": "Is the Service Pack authorized to the Site",
+                                "description": "Is the Service Pack authorized to the Site.",
+                                "type": "boolean"
+                              },
+                              "assigned": {
+                                "title": "Is the Service assigned to the Site",
+                                "description": "Is the Service assigned to the Site.",
+                                "type": "boolean"
+                              },
+                              "allowed": {
+                                "title": "Service allowed settings",
+                                "description": "Container for Service Pack allowed settings.",
+                                "type": "object",
+                                "required": ["unlimited"],
+                                "properties": {
+                                  "unlimited": {
+                                    "title": "Flag that specifies if Service Pack is allowed in unlimited quantity",
+                                    "description": "Flag that specifies if the Service Pack  is allowed in unlimited quantity.",
+                                    "type": "boolean"
+                                  },
+                                  "quantity": {
+                                    "title": "Number of allowed Service Packs assignments",
+                                    "description": "Number of allowed Service Packs assignments in Site.",
+                                    "type": "integer"
+                                  }
+                                }
+                              },
+                              "allocated": {
+                                "title": "Allocated settings",
+                                "description": "Container for Service Pack allocated settings.",
+                                "type": "object",
+                                "required": ["unlimited"],
+                                "properties": {
+                                  "unlimited": {
+                                    "title": "Flag that specifies if the Service Pack is allocated in unlimited quantity",
+                                    "description": "Flag that specifies if the Service Pack is allocated in unlimited quantity.",
+                                    "type": "boolean"
+                                  },
+                                  "quantity": {
+                                    "title": "Number of allocated Service Packs assignments",
+                                    "description": "Number of allocated Service Packs assignments in Site.",
+                                    "type": "integer"
+                                  }
+                                }
+                              },
+                              "usage": {
+                                "title": "Number of Service Pack Site",
+                                "description": "Number of Service Pack in Site.",
+                                "type": "integer"
+                              },
+                              "description": {
+                                "title": "Service Pack description",
+                                "description": "Service Pack description.",
+                                "type": "string",
+                                "minLength": 1,
+                                "maxLength": 256
+                              }
+                            },
+                            "required": ["name", "customerId", "authorized", "assigned", "allowed", "usage", "description"]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
                 "customerId": { "$ref": "/base#/definitions/CustomerId" },
                 "siteId": { "$ref": "/base#/definitions/SiteId" },
                 "siteServices": {
