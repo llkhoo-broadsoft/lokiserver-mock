@@ -2054,6 +2054,70 @@ Modify a Site resource.
           ]
         }
 
+## Password resource [/api/customers/{+customerId}/sites/{+siteId}/]
+Represents Password resource.
+
+### URI Template Parameters JSON Schema
+    {
+      "title": "Site resource URI template parameters",
+      "description": "Site resource URI template parameters",
+      "type": "object",
+      "properties": {
+        "customerId": { "$ref": "/base#/definitions/CustomerId" },
+        "siteId": { "$ref": "/base#/definitions/SiteId" }
+      },
+      "required": ["customerId", "siteId"]
+    }
+
+### Generate User password [POST /api/customers/{+customerId}/sites/{+siteId}/generatePassword] 
+
++ Links
+    + self - Self link.
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+
+        {
+          "_links": {
+            "self": { "href": "/api/customers/{+customerId}/sites/{+siteId}/generatePassword" },
+            "up": { "href": "/api/customers/{+customerId}/sites/{+siteId}" }
+          },
+          "password": "H54!#sfUa"
+        }
+
+    + Schema
+
+        {
+          "title": "Generate User password",
+          "description": "Generate User password",
+          "allOf": [
+            {
+              "$ref": "/base#/definitions/HalResponse"
+            }, {
+              "required": ["_links"]
+            }, {
+              "properties": {
+                "password": {
+                  "title": "Password",
+                  "description": "Randomly generated user password.",
+                  "type": "string"
+                }
+              },
+              "required": ["password"]
+            }
+          ]
+        }
+
 ## Restore default Site feature access codes  [/api/customers/{+customerId}/sites/{+siteId}/restoreDefaultFeatureAccessCodes]
 
 ### URI Template Parameters JSON Schema
