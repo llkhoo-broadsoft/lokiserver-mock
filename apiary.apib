@@ -6,6 +6,92 @@ This document contains mock API requests only.
 See real API on [http://docs.lokiserver.apiary.io](http://docs.lokiserver.apiary.io).
 
 
+# Group Customer 
+Following resources belong to Customer entity.
+## Password resource [/api/customers/{+customerId}/password]
+Represents Password resource.
+
+### URI Template Parameters JSON Schema
+    {
+      "title": "Customer resource URI template parameters",
+      "description": "Customer resource URI template parameters",
+      "type": "object",
+      "properties": {
+        "customerId": { "$ref": "/base#/definitions/CustomerId" }
+      },
+      "required": ["customerId"]
+    }
+
+### Generate Site Administrator password [POST /api/customers/{+customerId}/generatePassword] 
+
++ Links
+    + self - Self link.
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+    
+    + Body
+        {
+        
+        }
+        
+    + Schema
+        {
+          "title": "Generate Site Administrator password",
+          "description": "Generate Site Administrator password",
+          "type": "object",
+          "allOf": [
+            {
+              "properties": {
+                "userId": {
+                  "$ref": "/base#/definitions/UserId"
+                }
+              }
+            }
+          ]
+        }
+
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+
+        {
+          "_links": {
+            "self": { "href": "/api/customers/{+customerId}/generatePassword" },
+            "up": { "href": "/api/customers/{+customerId} " }
+          },
+          "password": "H54!#sfUa"
+        }
+
+    + Schema
+
+        {
+          "title": "Generate Site Administrator password",
+          "description": "Generate Site Administrator password",
+          "allOf": [
+            {
+              "$ref": "/base#/definitions/HalResponse"
+            }, {
+              "required": ["_links"]
+            }, {
+              "properties": {
+                "password": {
+                  "title": "Password",
+                  "description": "Randomly generated password.",
+                  "type": "string"
+                }
+              },
+              "required": ["password"]
+            }
+          ]
+        }
+
 # Group Site Services 
 Following resources belong to Site Services.
 
