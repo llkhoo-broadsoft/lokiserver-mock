@@ -92,6 +92,400 @@ Represents Password resource.
           ]
         }
 
+### Validate Site Administrator password [POST /api/customers/{+customerId}/validatePassword] 
+
++ Links
+    + self - Self link.
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+    
+    + Body
+        {
+          "password": "123456"
+        }
+        
+    + Schema
+        {
+          "title": "Validate Site Administrator password",
+          "description": "Validate Site Administrator password",
+          "type": "object",
+          "allOf": [
+            {
+              "properties": {
+                "password": {
+                  "title": "Password to validate against Customer’s password rules",
+                  "description": "Password to validate against Customer’s password rules.",
+                  "type": "string"
+                },
+                "userId": {
+                  "$ref": "/base#/definitions/UserId"
+                }
+              }
+            }
+          ]
+        }
+
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+
+        {
+          "_links": {
+            "self": {
+              "href": "/api/customers/{+customerId}/validatePassword"
+            },
+            "up": {
+              "href": "/api/customers/{+customerId} "
+            }
+          },
+          "isValid": false,
+          "violations": [
+            "upperCaseLetters",
+            "lowerCaseLetters",
+            "length"
+          ],
+          "passwordRules": {
+            "useRuleLevel": "Customer",
+            "disallowRulesModification": false,
+            "rulesApplyTo": "Administrator",
+            "allowWebAddExternalAuthenticationUsers": false,
+            "validations": {
+              "userId": {
+                "disallow": false
+              },
+              "oldPassword": {
+                "disallow": true
+              },
+              "reversedOldPassword": {
+                "disallow": false
+              },
+              "previousPasswords": {
+                "disallow": true,
+                "numberOfPasswords": 2
+              },
+              "digits": {
+                "require": true,
+                "minimum": 2
+              },
+              "upperCaseLetters": {
+                "restrict": true,
+                "minimum": 1
+              },
+              "lowerCaseLetters": {
+                "require": true,
+                "minimum": 1
+              },
+              "nonAlphanumericCharacters": {
+                "require": true,
+                "minimum": 1
+              },
+              "length": {
+                "minimum": 8
+              }
+            },
+            "loginAttempts": {
+              "restrict": true,
+              "maximum": 3
+            },
+            "expirePassword": {
+              "enable": true,
+              "numberOfDays": 30
+            },
+            "loginDisabledNotification": {
+              "sendEmail": true,
+              "email": "DemoEmail@example.com"
+            }
+          }
+        }
+        
+
+    + Schema
+
+        {
+          "title": "Validate Site Administrator password",
+          "description": "Validate Site Administrator password",
+          "allOf": [
+            {
+              "$ref": "/base#/definitions/HalResponse"
+            }, {
+              "required": ["_links"]
+            }, {
+              "properties": {
+                "isValid": {
+                  "title": "True if submitted password do comply with password rules for given Customer.",
+                  "description": "True if submitted password do comply with password rules for given Customer.",
+                  "type": "boolean"
+                },
+                "violations": {
+                  "title": "Array of violated rules",
+                  "description": "Array of violated rules.",
+                  "type": "array",
+                  "items": {
+                    "enum": ["userId", "digits", "upperCaseLetters", "lowerCaseLetters", "nonAlphanumericCharacters", "length"]
+                  }
+                },
+                "passwordRules": {
+                  "title": "Container for customer  rules settings, matching to passwordRules section in Customer resource",
+                  "description": "Container for customer  rules settings, matching to passwordRules section in Customer resource.",
+                  "type": "object",
+                  "required": ["useRuleLevel", "disallowRulesModification", "rulesApplyTo", "allowWebAddExternalAuthenticationUsers", "validations", "loginAttempts", "expirePassword", "loginDisabledNotification"],
+                  "properties": {
+                    "useRuleLevel": {
+                      "title": "Choices for the Customer password rule to decide which type of rules to use",
+                      "description": "Choices for the password rule to decide which type of rules to use.",
+                      "enum": ["System", "Customer"]
+                    },
+                    "disallowRulesModification": {
+                      "title": "Disallow password rules modification",
+                      "description": "Disallow password rules modification.",
+                      "type": "boolean"
+                    },
+                    "rulesApplyTo": {
+                      "title": "Rules apply to",
+                      "description": "Rules apply to.",
+                      "enum": ["Administrator", "Administrator and User", "Group Administrator and User External Authentication"]
+                    },
+                    "allowWebAddExternalAuthenticationUsers": {
+                      "title": "Allow users to be created when external authentication is enabled",
+                      "description": "Allow users to be created when external authentication is enabled.",
+                      "type": "boolean"
+                    },
+                    "validations": {
+                      "title": "Container for customer password rules validation settings",
+                      "description": "Container for customer password rules validation settings.",
+                      "type": "object",
+                      "required": ["userId", "oldPassword", "reversedOldPassword", "previousPasswords", "digits", "upperCaseLetters", "lowerCaseLetters", "nonAlphanumericCharacters", "length"],
+                      "properties": {
+                        "userId": {
+                          "title": "Container for \"disallow user id\" rule",
+                          "description": "Container for \"disallow user id\" rule",
+                          "type": "object",
+                          "required": ["disallow"],
+                          "properties": {
+                            "disallow": {
+                              "title": "Disallow user id rule flag",
+                              "description": "Disallow user id rule flag.",
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "oldPassword": {
+                          "title": "Container for \"disallow old password\" rule",
+                          "description": "Container for \"disallow old password\" rule.",
+                          "type": "object",
+                          "required": ["disallow"],
+                          "properties": {
+                            "disallow": {
+                              "title": "Disallow old password flag",
+                              "description": "Disallow old password flag.",
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "reversedOldPassword": {
+                          "title": "Container for \"Disallow reversed old password\" rule",
+                          "description": "Container for \"Disallow reversed old password\" rule.",
+                          "type": "object",
+                          "required": ["disallow"],
+                          "properties": {
+                            "disallow": {
+                              "title": "Disallow reversed old password flag",
+                              "description": "Disallow reversed old password flag.",
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "previousPasswords": {
+                          "title": "Container for previous passwords rules",
+                          "description": "Container for previous passwords rules.",
+                          "type": "object",
+                          "required": ["disallow", "numberOfPasswords"],
+                          "properties": {
+                            "disallow": {
+                              "title": "Disallow previous passwords",
+                              "description": "Disallow previous passwords.",
+                              "type": "boolean"
+                            },
+                            "numberOfPasswords": {
+                              "title": "Number of previous passwords to keep in history",
+                              "description": "Number of previous passwords to keep in history.",
+                              "type": "integer",
+                              "minimum": 1,
+                              "maximum": 10
+                            }
+                          }
+                        },
+                        "digits": {
+                          "title": "Container for digits rules",
+                          "description": "Container for digits rules.",
+                          "type": "object",
+                          "required": ["require", "minimum"],
+                          "properties": {
+                            "require": {
+                              "title": "Require a minimum number of digits",
+                              "description": "Require a minimum number of digits.",
+                              "type": "boolean"
+                            },
+                            "minimum": {
+                              "title": "Minimum number of required digits",
+                              "description": "Minimum number of required digits.",
+                              "type": "integer",
+                              "minimum": 1,
+                              "maximum": 10
+                            }
+                          }
+                        },
+                        "upperCaseLetters": {
+                          "title": "Container for uppercase letters rules",
+                          "description": "Container for uppercase letters rules.",
+                          "type": "object",
+                          "required": ["restrict", "minimum"],
+                          "properties": {
+                            "restrict": {
+                              "title": "Require a minimum number of uppercase letters",
+                              "description": "Require a minimum number of uppercase letters.",
+                              "type": "boolean"
+                            },
+                            "minimum": {
+                              "title": "Minimum number of required uppercase letters",
+                              "description": "Minimum number of required uppercase letters.",
+                              "type": "integer",
+                              "minimum": 1,
+                              "maximum": 10
+                            }
+                          }
+                        },
+                        "lowerCaseLetters": {
+                          "title": "Container for lowercase letters rules",
+                          "description": "Container for lowercase letters rules.",
+                          "type": "object",
+                          "required": ["require", "minimum"],
+                          "properties": {
+                            "require": {
+                              "title": "Require a minimum number of lowercase letters",
+                              "description": "Require a minimum number of lowercase letters.",
+                              "type": "boolean"
+                            },
+                            "minimum": {
+                              "title": "Minimum number of required lowercase letters",
+                              "description": "Minimum number of required lowercase letters.",
+                              "type": "integer",
+                              "minimum": 1,
+                              "maximum": 10
+                            }
+                          }
+                        },
+                        "nonAlphanumericCharacters": {
+                          "title": "Container for nonAlphanumeric characters rules",
+                          "description": "Container for nonAlphanumeric characters rules.",
+                          "type": "object",
+                          "required": ["require", "minimum"],
+                          "properties": {
+                            "require": {
+                              "title": "Require a minimum number of alphanumeric characters",
+                              "description": "Require a minimum number of alphanumeric characters.",
+                              "type": "boolean"
+                            },
+                            "minimum": {
+                              "title": "Minimum number of required alphanumeric characters",
+                              "description": "Minimum number of required alphanumeric characters.",
+                              "type": "integer",
+                              "minimum": 1,
+                              "maximum": 10
+                            }
+                          }
+                        },
+                        "length": {
+                          "title": "Container for nonAlphanumeric characters rules",
+                          "description": "Container for nonAlphanumeric characters rules.",
+                          "type": "object",
+                          "required": ["minimum"],
+                          "properties": {
+                            "minimum": {
+                              "title": "Minimum length of the password",
+                              "description": "Minimum length of the password.",
+                              "type": "integer",
+                              "minimum": 3,
+                              "maximum": 40
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "loginAttempts": {
+                      "title": "Container for login attempts rules",
+                      "description": "Container for login attempts rules.",
+                      "type": "object",
+                      "required": ["restrict"],
+                      "properties": {
+                        "restrict": {
+                          "title": "Restrict",
+                          "description": "Disable login after a maximum number of failed login attempts.",
+                          "type": "boolean"
+                        },
+                        "maximum": {
+                          "title": "Maximum number of failed login attempts",
+                          "description": "Maximum number of failed login attempts.",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 10
+                        }
+                      }
+                    },
+                    "expirePassword": {
+                      "title": "Container for Password expiration rules",
+                      "description": "Container for password expiration rules.",
+                      "type": "object",
+                      "required": ["enable"],
+                      "properties": {
+                        "enable": {
+                          "title": "Expire password after a number of days.",
+                          "description": "Expire password after a number of days.",
+                          "type": "boolean"
+                        },
+                        "numberOfDays": {
+                          "title": "Days until the password expires",
+                          "description": "Days until the password expires.",
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 199
+                        }
+                      }
+                    },
+                    "loginDisabledNotification": {
+                      "title": "Container for login disabled notification settings",
+                      "description": "Container for login disabled notification settings.",
+                      "type": "object",
+                      "required": ["sendEmail", "email"],
+                      "properties": {
+                        "sendEmail": {
+                          "title": "Send email when login is disabled",
+                          "description": "Send email when login is disabled.",
+                          "type": "boolean"
+                        },
+                        "email": {
+                          "anyOf":[
+                            { "$ref": "/base#/definitions/EmailAddress" },
+                            { "type": "null" }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": ["isValid", "passwordRules"]
+            }
+          ]
+        }
+
 # Group Site Services 
 Following resources belong to Site Services.
 
@@ -4397,6 +4791,79 @@ Restore default Site feature access codes.
                 "siteId": { "$ref": "/base#/definitions/SiteId" }
               },
               "required": ["customerId", "siteId"]
+            }
+          ]
+        }
+
+# Group System 
+Following resources belong to Site System.
+## Password resource [/api/password]
+Represents Password resource.
+
+
+### Generate password for Customer or System Administrator [POST /api/generatePassword] 
+
++ Links
+    + self - Self link.
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+    
+    + Body
+        {}
+        
+    + Schema
+        {
+          "title": "Generate password for Customer or System Administrator",
+          "description": "Generate password for Customer or System Administrator",
+          "type": "object",
+          "allOf": [
+            {
+              "properties": {
+                "userId": {
+                  "$ref": "/base#/definitions/UserId"
+                }
+              }
+            }
+          ]
+        }
+
+
++ Response 200 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+
+        {
+          "_links": {
+            "self": { "href": "/api/generatePassword" }
+          },
+          "password": "H54!#sfUa"
+        }
+
+    + Schema
+
+        {
+          "title": "Generate password for Customer or System Administrator",
+          "description": "Generate password for Customer or System Administrator ",
+          "allOf": [
+            {
+              "$ref": "/base#/definitions/HalResponse"
+            }, {
+              "required": ["_links"]
+            }, {
+              "properties": {
+                "password": {
+                  "title": "Password",
+                  "description": "Randomly generated user password.",
+                  "type": "string"
+                }
+              },
+              "required": ["password"]
             }
           ]
         }
