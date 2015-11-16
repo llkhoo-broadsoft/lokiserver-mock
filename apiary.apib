@@ -2591,7 +2591,7 @@ Represents Password resource.
     
     + Body
         {
-        
+          "userId": "testuser@example.net"
         }
         
     + Schema
@@ -2680,7 +2680,8 @@ Represents Password resource.
                 "userId": {
                   "$ref": "/base#/definitions/UserId"
                 }
-              }
+              },
+              "required": ["password"]
             }
           ]
         }
@@ -6869,7 +6870,6 @@ Represents Password resource.
           "userId": "test@example.net"
         }
         
-        
     + Schema
         {
           "title": "Generate User password",
@@ -7399,7 +7399,9 @@ Represents Password resource.
         Transaction-Id: 1380080943120
     
     + Body
-        {}
+        {
+          "userId": "testuser@example.net"
+        }
         
     + Schema
         {
