@@ -8128,7 +8128,7 @@ Retrieve a VoIP User.
     + ls:customer - Customer resource. Single. [/loki/customers/{+customerId}]
     + ls:site - Site resource. Single. [/loki/customers/{+customerId}/sites/{+siteId}]
     + ls:user-device - User's Device. Single. Optional - not present when user does not have primary device. [/loki/customers/{+customerId}/sites/{+siteId}/devices/{+deviceId}]
-    + ls:user-registrations - User�s registrations collection. Single. [/loki/users/{+userId}/registrations]
+    + ls:user-registrations - User's registrations collection. Single. [/loki/users/{+userId}/registrations]
     + ls:user-services - User's services document. Single. [/loki/users/{+userId}/services]
     + ls:user-reInvite - User ReInvite controller. Single. [/loki/users/{+userId}/reInvite]
     + ls:user-swapDevice - Swap Device controller. Single. [/loki/users/{+userId}/swapDevice]
@@ -8229,7 +8229,7 @@ Retrieve a VoIP User.
                     "useDomain": true,
                     "supportVisualDeviceManagement": false
                 },
-                "ls:user-department ": {
+                "ls:user-department": {
                     "_links": {
                         "self": {
                             "href": "http://example.com/api/customers/DemoCustomer/sites/DemoSite/departments/Dept"
@@ -8548,7 +8548,7 @@ Modify a VoIP User resource.
                 "department": {
                   "oneOf": [
                     {
-                      "$ref": "/base#/definitions/Department"
+                      "$ref": "/base#/definitions/DepartmentKey"
                     }, {
                       "type": "null"
                     }
