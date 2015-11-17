@@ -1328,10 +1328,26 @@ Represents Customer resource.
                       }
                     }
                   }
+                },
+                "extensions": {
+                  "title": "Container for various extension data",
+                  "description": "Container for various extension data.",
+                  "type": "object",
+                  "required": ["broadworks"],
+                  "properties": {
+                    "broadworks": {
+                      "title": "Container for BroadWorks properties",
+                      "description": "Container for BroadWorks properties.",
+                      "type": "object",
+                      "required": ["resourceId"],
+                      "properties": {
+                        "resourceId": { "$ref": "/base#/definitions/CustomerId" }
+                      }
+                    }
+                  }
                 }
-        
               },
-              "required":["profile", "passwordRules", "passcodeRules", "featureAccessCodes", "callProcessingPolicy"]
+              "required":["profile", "passwordRules", "passcodeRules", "featureAccessCodes", "callProcessingPolicy", "extensions"]
             }
           ]
         }
