@@ -5,8 +5,6 @@ FORMAT: 1A
 This document contains mock API requests only.
 See real API on [http://docs.lokiserver.apiary.io](http://docs.lokiserver.apiary.io).
 
-Note: For The Mock Requests to work the config parameter voip > enableMockProcesses must be true.
-
 
 # Group Customer 
 Following resources belong to Customer entity.
@@ -76,7 +74,7 @@ Represents Customer resource.
             "contact": {
               "name": "bob jones",
               "phone": "2028887777",
-              "email": "bjones@jones.com"
+              "email": "bjones@example.com"
             },
             "address": {
               "addressLine1": "415 Sixth Ave",
@@ -1375,7 +1373,7 @@ Represents Customer resource.
             "contact": {
               "name": "bob jones",
               "phone": "2028887777",
-              "email": "bjones@jones.com"
+              "email": "bjones@example.com"
             },
             "address": {
               "addressLine1": "415 Sixth Ave",
@@ -3062,6 +3060,94 @@ Represents Password resource.
           ]
         }
 
+# Group Logging Service
+Following resources belong to Logging Service.
+## Save a new log message [POST /api/addLogs]
+Request persists log messages in the centralized store.
+
++ Request (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+    + Body
+         {
+             "timestamp": 1448658974800,
+             "level": "WARN",
+             "message": "Configuration section 'CServer/timeout' is missing. Using default value 10 seconds.",
+             "transactionId": "58e0a7d7-eebc-11d8-9669-0800200c9a66",
+             "clientName": "PServer",
+             "clientUid": "instance-113015"
+         }
+
+    + Schema
+        {
+            "title": "Save Log Message request body",
+            "description": "Save Log Message request body",
+            "type": "object",
+            "additionalProperties": true,
+            "required": ["timestamp", "level", "message", "clientName", "clientUid"],
+            "properties": {
+                "timestamp": {
+                    "description": "Event's unix timestamp in microseconds (on the client)",
+                    "type": "integer"
+                },
+                "level": {
+                    "description": "Log level",
+                    "enum": [ "FATAL", "ERROR", "WARN", "INFO", "DEBUG", "TRACE" ]
+                },
+                "message": {
+                    "description": "Log text message",
+                    "type": "string"
+                },
+                "trace": {
+                    "description": "Any info related to position of issued event in application code. e.g. filename, class, function, line, etc.",
+                    "type": "string"
+                },
+                "transactionId": {
+                    "description": "Random string. This parameter should be same for all events that related to same operation. It allows to bind multiple events issues from multiple components together",
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "sequenceId": {
+                    "description": "String that allows to trace sequence of calls",
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "clientName": {
+                    "description": "Name of the application that issued the event provided by application itself",
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "clientUid": {
+                    "description": "If there are multiple applications with same name (e.g. multiple instances are started), this parameter should identify unique application instance. This may be instance ID generated during application deployment",
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "clientVersion": {
+                    "description": "If there are multiple version of application running, this parameter should identify version of application",
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "clientAddress": {
+                    "description": "If client instance has an address, this parameter should contain address.",
+                    "type": "string",
+                    "maxLength": 255
+                },
+                "authUserId": {
+                    "description": "If user access is involved, this is authenticated user's ID",
+                    "type": "string",
+                    "maxLength": 255
+                }
+            }
+        }
+
++ Response 204 (application/hal+json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+
+
 # Group Site Services 
 Following resources belong to Site Services.
 
@@ -3701,7 +3787,7 @@ Retrieve Site resource.
             "contact": {
               "name": "bob jones",
               "phone": "2028887777",
-              "email": "bjones@jones.com"
+              "email": "bjones@example.com"
             },
             "address": {
               "addressLine1": "415 Sixth Ave",
@@ -5112,7 +5198,7 @@ Modify a Site resource.
              "contact": {
                "name": "bob jones",
                "phone": "2028887777",
-               "email": "bjones@jones.com"
+               "email": "bjones@example.com"
              },
              "address": {
                "addressLine1": "415 Sixth Ave",
