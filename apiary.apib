@@ -73,7 +73,7 @@ Represents Customer resource.
             },
             "contact": {
               "name": "bob jones",
-              "phone": "2028887777",
+              "phone": "+1-2028887777",
               "email": "bjones@example.com"
             },
             "address": {
@@ -1372,7 +1372,7 @@ Represents Customer resource.
             },
             "contact": {
               "name": "bob jones",
-              "phone": "2028887777",
+              "phone": "+1-2028887777",
               "email": "bjones@example.com"
             },
             "address": {
@@ -2677,7 +2677,7 @@ Represents Password resource.
     
     + Body
         {
-          "password": "123456"
+          "password": "H54!#sfUa"
         }
         
     + Schema
@@ -3638,12 +3638,12 @@ Retrieve Customer’s Sites resource.
                     "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/restoreDefaultFeatureAccessCodes"
                   }
                 },
-                "siteId": "DemoSite",
+                "siteId": "DemoSite1",
                 "userLimit": 25,
-                "siteName": "DemoSite",
+                "siteName": "DemoSite1",
                 "extensions": {
                   "broadworks": {
-                    "resourceId": "DemoSite"
+                    "resourceId": "DemoSite1"
                   }
                 }
               },
@@ -3669,7 +3669,7 @@ Retrieve Customer’s Sites resource.
                   }
                 },
                 "siteId": "DemoSite2",
-                "userLimit": 10,
+                "userLimit": 25,
                 "siteName": "DemoSite2",
                 "extensions": {
                   "broadworks": {
@@ -3786,7 +3786,7 @@ Retrieve Site resource.
             "locationDialingCode": "1",
             "contact": {
               "name": "bob jones",
-              "phone": "2028887777",
+              "phone": "+1-2028887777",
               "email": "bjones@example.com"
             },
             "address": {
@@ -5197,7 +5197,7 @@ Modify a Site resource.
              "locationDialingCode": "1",
              "contact": {
                "name": "bob jones",
-               "phone": "2028887777",
+               "phone": "+1-2028887777",
                "email": "bjones@example.com"
              },
              "address": {
@@ -6523,7 +6523,7 @@ Represents Passcode resource.
     
     + Body
         {
-          "phoneNumber": "+1-4152335735",
+          "phoneNumber": "+1-2028887777",
           "extension": "5735"
         }
         
@@ -6600,8 +6600,8 @@ Represents Passcode resource.
 
     + Body
         {
-          "passcode": "123456",
-          "userId": "test@example.net"
+          "passcode": "66754081",
+          "userId": "testuser@example.net"
         }
     
     + Schema
@@ -6692,7 +6692,7 @@ Represents Passcode resource.
             },
             "loginDisabledNotification": {
               "sendEmail": false,
-              "email": null
+              "email": "DemoEmail@example.com"
             }
           }
         }
@@ -6971,7 +6971,7 @@ Represents Password resource.
     
     + Body
         {
-          "userId": "test@example.net"
+          "userId": "testuser@example.net"
         }
         
     + Schema
@@ -7041,7 +7041,7 @@ Represents Password resource.
         
     + Body
         {
-          "password": "123456"
+          "password": "H54!#sfUa"
         }
         
     + Schema
@@ -7573,7 +7573,7 @@ Represents Password resource.
     
     + Body
         {
-          "password": "123456"
+          "password": "H54!#sfUa"
         }
         
     + Schema
@@ -8121,12 +8121,12 @@ Retrieve a VoIP User’s Call Forwarding Always service settings
         {
             "_links": {
                 "self": {
-                    "href": "http://lokiserver.apiary.io/loki/users/2005553001%40example.com/services/Call%20Forwarding%Always"
+                    "href": "http://lokiserver.apiary.io/loki/users/testuser@example.net/services/Call%20Forwarding%Always"
                 },
-                "up": { "href": "http://lokiserver.apiary.io/loki/users/2005553001%40example.com/services" },
-                "ls:user": { "href": "http://lokiserver.apiary.io/loki/users/2005553001%40example.com" }
+                "up": { "href": "http://lokiserver.apiary.io/loki/users/testuser@example.net/services" },
+                "ls:user": { "href": "http://lokiserver.apiary.io/loki/users/testuser@example.net" }
             },
-            "userId": "2005553001@example.com",
+            "userId": "testuser@example.net",
             "isActive": true,
             "forwardToPhoneNumber": "2005553002",
             "isRingSplashActive": false
@@ -8174,7 +8174,7 @@ Modify VoIP User’s Call Forwarding Always Settings
  
         {
             "isActive": true,
-            "forwardToPhoneNumber": "+1-4151112222",
+            "forwardToPhoneNumber": "2005553002",
             "isRingSplashActive": false
         }
         
@@ -8311,10 +8311,10 @@ Retrieve a VoIP User.
                 "ls:user-phone-number": {
                     "_links": {
                         "self": {
-                            "href": "http://example.com/api/customers/DemoCustomer/sites/DemoSite/phone-numbers/+1-4152003000"
+                            "href": "http://example.com/api/customers/DemoCustomer/sites/DemoSite/phone-numbers/+1-2028887777"
                         }
                     },
-                    "phoneNumber": "+1-4152003000",
+                    "phoneNumber": "+1-2028887777",
                     "countryCode": "1",
                     "nationalPrefix": null
                 },
@@ -8357,13 +8357,13 @@ Retrieve a VoIP User.
             "callingLineId": {
                 "lastName": "Smith",
                 "firstName": "John",
-                "phoneNumber": "+1-4152223000"
+                "phoneNumber": "+1-2025555003"
             },
             "nameDialingName": {
                 "lastName": "Smith",
                 "firstName": "John"
             },
-            "phoneNumber": "+1-4152223000",
+            "phoneNumber": "+1-2028887777",
             "extension": "3000",
             "department": {
                 "customerId": "DemoCustomer",
@@ -8490,13 +8490,13 @@ Modify a VoIP User resource.
            "callingLineId": {
              "lastName": "Smith",
              "firstName": "John",
-             "phoneNumber": "+1-4152223000"
+             "phoneNumber": "+1-2025555003"
            },
            "nameDialingName": {
              "lastName": "Smith",
              "firstName": "John"
            },
-           "phoneNumber": "+1-4152223000",
+           "phoneNumber": "+1-2028887777",
            "extension": "3000",
            "department": {
              "customerId": "DemoCustomer",
@@ -8915,14 +8915,14 @@ Retrieve a VoIP User's Registrations List.
                                         "href": "http://loki.example.com/loki/customers/ExampleCom/sites/ExampleCom/devices/example_btbc_pc"
                                     }
                                 },
-                                "customerId": "ExampleCom",
-                                "siteId": "ExampleCom",
+                                "customerId": "DemoCustomer",
+                                "siteId": "DemoSite",
                                 "deviceId": " example_btbc_pc",
                                 "name": " example_btbc_pc",
                                 "level": "Site"
                             }
                         },
-                        "userId": "exampleUserId@example.com",
+                        "userId": "testuser@example.net",
                         "order": 1,
                         "uri": "sip:btbcpcexampleUserId-9k0bol85l7lvf@10.48.1.13:5060;transport=udp",
                         "expiration": "Wed Aug 12 03:17:30 EDT 2015",
@@ -8952,13 +8952,13 @@ Retrieve a VoIP User's Registrations List.
                                         "href": "http://loki.example.com/loki/customers/ExampleCom/devices/example_btbc_mac"
                                     }
                                 },
-                                "customerId": "ExampleCom",
+                                "customerId": "DemoCustomer",
                                 "deviceId": "example_btbc_mac",
                                 "name": "example_btbc_mac",
                                 "level": "Customer"
                             }
                         },
-                        "userId": "exampleUserId@example.com",
+                        "userId": "testuser@example.net",
                         "order": 2,
                         "uri": "sip:btbcmacexampleUserId-9k0bol85l7lvf@10.48.1.14:5060;transport=udp",
                         "expiration": "Wed Aug 12 03:17:30 EDT 2015",
