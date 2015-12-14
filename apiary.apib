@@ -9056,9 +9056,8 @@ Retrieve a VoIP User's Registrations List.
 
 
 # Group Working with Mock APIs Code
-Mock requests code is located under `lib/voip-entity/mock-processes` folder.
+Mock requests files are located under `lib/voip-entity/mock-processes` folder.
 
-## Intro
 Requests have following files layout:
 ```
 ├── <resource_group> (e.g. "user")
@@ -9069,7 +9068,7 @@ Requests have following files layout:
         ├── resource.uri-template.schema.json (JSON schema for resource URI template parameters, e.g. in /api/users/{+userId} userId is parameter)
         ├── <request> (e.g. "get", "put", "post", etc.)
              ├── _apidoc.request.md (documentation for specific request, e.g. "GET /api/users")
-             ├── process.js (*process definition file*)
+             ├── process.js (process definition file)
              ├── request.query.schema.json (JSON Schema for query parameters)
              ├── response.200.body.schema.json (JSON Schema for a data response like 200 OK)
              ├── response.200.example.json (Mock JSON response sample)
@@ -9078,228 +9077,21 @@ Requests have following files layout:
              ├── process.js (*process definition file*)
              ├── request.query.schema.json (JSON Schema for query parameters)
              ├── response.200.body.schema.json (JSON Schema for a data response like 200 OK)
-             ├── response.200.example.json (Mock JSON response sample)
+             ├── response.200.example.json (*Mock JSON response sample*)
         ...
 ```
 
 The main file in this layout is `process.js`. Other files contain sample responses, JSON schemas, API documentation.
 One `process.js` defines one API request: its URI, HTTP method, input validations, and responses.
-This file contains _process definition_ for _process engine_ internal framework.
 
-In _process engine_ terminology, _process_ is the sequence of _steps_ (functions) that are executed in specified order.
-_Process definition_ describes list of steps and data mappings between input parameters (_dataset_), steps, and output parameters
-in form of JSON object.
-
-Common structure of `process.js` file:
-
-```javascript
-// process definition object
-var process = {
-    processDef: {
-        // name of the process. Appears in logs, must contain "MOCK" word
-        "name": "Do something (MOCK)",
-        // list of process steps
-        // mock requests have only one step
-        "steps": [
-            {
-                // step name (for Mock requests there is only one step and it is always same)
-                "name": "Mock Response",
-                // parameters that will be passed inside the step
-                // these parameters define RESPONSES
-                "inputMappings": {
-                    // This is the default response
-                    "stepDataset.responses.default": {
-                        "value": {
-                            // response HTTP code
-                            "statusCode": 200,
-                            // response body, loaded from file
-                            "body": require('./response.200.body.example.json')
-                        }
-                    },
-                    // This is the alternative response
-                    "stepDataset.responses.outofservice": {
-                        "value": {
-                            // condition when response should be returned instead of default one
-                            // if function returns true, this response will be used
-                            "condition": function (dataset) {
-                                // dataset contains parameters from URI (e.g. /api/users/{+userId})
-                                // and parameters from request JSON body
-                                // in this example, if submitted userId contains "unlucky", 503 error is returned
-                                return dataset.userId && dataset.userId.match(/unlucky/i);
-                            },
-                            // response HTTP code
-                            "statusCode": 503,
-                            // error code that will appear in error response body
-                            "errorCode": "INTERNAL_ERROR",
-                            // error details that will appear in error response body
-                            "errorDetails": {
-                                "externalErrorCode": "2006",
-                                "externalErrorSummary": "Cannot connect to database",
-                                "externalErrorDetail": "MySQL server has gone away (error 2006)",
-                                "summary": "Datastore service is out of service",
-                                "detail": "Datastore service is out of service"
-                            }
-                        }
-                    },
-                    // It is possible to define many responses returning different data or errors
-                    // Responses should follow RD documents
-                    "stepDataset.responses.nodeviceuser": {
-                        "value": {
-                            // response HTTP code
-                            "statusCode": 200,
-                            // response body, loaded from file
-                            "body": require('./response.200.body.example-nodevice.json'), // different json file
-                            "condition": function (dataset) { return dataset.userId && dataset.userId.match(/^nodevice/); }
-                        }
-                    },
-                    // Another response with error
-                    "stepDataset.responses.nouser": {
-                        "value": {
-                            "statusCode": 404,
-                            "errorCode": "NOT_FOUND",
-                            "errorDetails": {"detail": "User not found"},
-                            "condition": function (dataset) { return dataset.userId && dataset.userId.match(/^nouser/); }
-                        }
-                    }
-                },
-                // This maps step result to process result
-                // Same for all Mock requests
-                "outputMappings": {
-                    "dataset._result" : {
-                        "merge": "stepResult"
-                    }
-                }
-            }
-        ]
-    },
-    // request HTTP method
-    method: "post",
-    // request URI, note URI parameters notation
-    path: "/api/users/:userId",
-    // this parameter sets validation JSON schemas
-    // if no schema defined, use null
-    schemas: {
-        // json schema for validating URI template parameters if present
-        uriTemplate: require('../../resource.uri-template.schema.json'),
-        // json schema for validating query parameters if present
-        uriQuery: require('./request.query.schema.json'),
-        // json schema for request body if present
-        requestBody: require('./request.body.schema.json')
-    }
-};
-
-// process definition object is ready for process engine
-module.exports = process;
-```
+*Note*: in order to update response, it is only allowed to change the data inside response sample files (`*.example*.json`)
+to avoid the risk of having to update client code when the real request is provided later.*
 
 ## Updating Responses in Existing Requests
  * Grep for a string from mock response contents in `lib/voip-entity/mock-processes` folder.
-Likely, a response.200.body.example.json file or file with similar name will be found.
+Likely, a `response.200.body.example.json` file or file with similar name will be found.
 This file should contain JSON with a mock response.
+ * Alternatively, search for API request URI (e.g. `/api/users/:userId`), to find related `process.js` file, and find the `*.example*.json` file in the same folder.
  * Edit file as required. *Note:* make sure that changes are passing JSON schema validations. Run `gulp apidocs:validate-examples` to check there are no validation errors.
  * Restart LServer to apply changes.
-
-## Adding Alternative Responses to Existing Requests
-In the `process.js` file related to specific request (it is possible to locate it by searching for URI or some string from response),
-find the `process` object, and its `processDef.steps.inputMappings` section.
-For example, initially it contains only one response (usually default response goes first):
-```javascript
-                // parameters that will be passed inside the step
-                // these parameters define RESPONSES
-                "inputMappings": {
-                    // This is the default response
-                    "stepDataset.responses.default": {
-                        "value": {
-                            // response HTTP code
-                            "statusCode": 200,
-                            // response body, loaded from file
-                            "body": require('./response.200.body.example.json')
-                        }
-                    }
-                    ...
-```
-
-Add new object under same inputMapping section:
-```javascript
-                // parameters that will be passed inside the step
-                // these parameters define RESPONSES
-                "inputMappings": {
-                    // This is the default response
-                    "stepDataset.responses.default": {
-                        "value": {
-                            // response HTTP code
-                            "statusCode": 200,
-                            // response body, loaded from file
-                            "body": require('./response.200.body.example.json')
-                        }
-                    },
-
-                    // This is my custom response
-                    "stepDataset.responses.mycustom": {
-                        "value": {
-                            // Condition for my custom response
-                            "condition": function(dataset) {
-                                return dataset.param && dataset.param.match(/test/);
-                            }
-                            // response HTTP code
-                            "statusCode": 200,
-                            // response body, loaded from file
-                            "body": require('./response.200.body.example-custom.json')
-                        }
-                    }
-
-                    ...
-```
-Note that comparing to default response new response has `condition` property which defines when response should be returned using a function.
-If functions evaluates to `true`, response will be returned (Note: if several custom responses have positive condition, the latest one will be returned).
-In this example condition depends on input parameter `param`.
-Also notice that response `body` is loaded from different file (process of creating JSON file is omitted here).
-
-If response is another variation of existing request, it should have similar name, for example:
- * response.200.body.example.json
- * response.200.body.example-2.json
- * response.200.body.example-3.json
-
-All such responses will be validated against JSON schema response.200.body.schema.json by gulp task `gulp apidocs:validate-examples`.
-Remember to check that response pass JSON schema validations.
-
-If alternate error is error response, object should have standard error fields:
-```javascript
-                    "stepDataset.responses.outofservice": {
-                        "value": {
-                            // condition when response should be returned instead of default one
-                            // if function returns true, this response will be used
-                            "condition": function (dataset) {
-                                // dataset contains parameters from URI (e.g. /api/users/{+userId})
-                                // and parameters from request JSON body
-                                // in this example, if submitted userId contains "unlucky", 503 error is returned
-                                return dataset.userId && dataset.userId.match(/unlucky/i);
-                            },
-                            // response HTTP code
-                            "statusCode": 503,
-                            // error code that will appear in error response body
-                            "errorCode": "INTERNAL_ERROR",
-                            // error details that will appear in error response body
-                            "errorDetails": {
-                                "externalErrorCode": "2006",
-                                "externalErrorSummary": "Cannot connect to database",
-                                "externalErrorDetail": "MySQL server has gone away (error 2006)",
-                                "summary": "Datastore service is out of service",
-                                "detail": "Datastore service is out of service"
-                            }
-                        }
-                    },
-```
-
-
-*Note*: alternative non-error response that has different content and HTTP status code than existing success response,
-should not be added unless it is designed in the RD document.
-
-
-## Adding New Mock Requests
-Folders structure needs to be created and populated with files mentioned above.
-API documentation files, and JSON schemas should follow principles described in "Design Specification: Creating Mock Request" document.
-`process.js` should contain valid process definition.
-
-For a quick start, existing requests can be copied as reference and updated.
 
