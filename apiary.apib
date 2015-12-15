@@ -5,7 +5,60 @@ FORMAT: 1A
 This document contains mock API requests only.
 See real API on [http://docs.lokiserver.apiary.io](http://docs.lokiserver.apiary.io).
 
+Conventions for mock request design:
 
+1) Consistent data (to be updated with each new request):
+<table>
+    <thead>
+        <tr>
+            <th>
+                Resource
+            </th>
+            <th>
+                Data
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+         <tr>
+            <td>
+                Customer
+            </td>
+            <td>
+               "customerId": "DemoCustomer"<br>
+               "customerName": "Example Com Co."
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Site
+            </td>
+            <td>
+               "siteId": "DemoSite"<br>
+               "siteName": "DemoSite
+            </td>
+        </tr>
+        <tr>
+            <td>
+                User
+            </td>
+            <td>
+               "userId": "testuser@example.com"
+            </td>
+        </tr>
+         <tr>
+            <td>
+                All
+            </td>
+            <td>
+              "defaultDomain": "example.com"
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+2) PUT request body needs to be the same as GET response data.
 # Group Customer 
 Following resources belong to Customer entity.
 ## Customer resource [/api/customers/{+customerId}]
@@ -3702,11 +3755,69 @@ Retrieve Customer’s Sites resource.
               "required": ["_links"]
             }, {
               "properties": {
+                "_embedded":{
+                  "title": "HAL Embedded resources",
+                  "description": "HAL Embedded resources",
+                  "type": "object",
+                  "required": ["item"],
+                  "properties": {
+                    "item":{
+                      "title": "List of Sites in the Customer",
+                      "description": "List of Sites in the Customer",
+                      "type": "array",
+                      "items": {
+                        "title": "Site",
+                        "description": "Site.",
+                        "type": "object",
+        
+                        "allOf": [
+                          { "$ref": "/base#/definitions/HalResponse" },
+                          { "required": ["_links"] },
+                          {
+                            "properties": {
+                              "siteName": {
+                                "anyOf":[
+                                  { "$ref": "/base#/definitions/SiteName" },
+                                  { "type": "null" }
+                                ]
+                              },
+                              "userLimit": {
+                                "title": "Configured maximum number of users in the Site",
+                                "description": "Configured maximum number of users in the Site.",
+                                "type": "integer",
+                                "minimum": 1,
+                                "maximum": 999999
+                              },
+                              "extensions": {
+                                "title": "Container for various extension data",
+                                "description": "Container for various extension data.",
+                                "type": "object",
+                                "required": ["broadworks"],
+                                "properties": {
+                                  "broadworks": {
+                                    "title": "Container for BroadWorks properties",
+                                    "description": "Container for BroadWorks properties.",
+                                    "type": "object",
+                                    "required": ["resourceId"],
+                                    "properties": {
+                                      "resourceId": { "$ref": "/base#/definitions/SiteId" }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "required": ["siteName", "userLimit", "extensions"]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
                 "customerId": {
                   "$ref": "/base#/definitions/CustomerId"
                 }
               },
-              "required": ["customerId"]
+              "required": ["customerId", "_embedded"]
             }
           ]
         }
@@ -6656,7 +6767,7 @@ Represents Passcode resource.
             }
           },
           "isValid": false,
-          "violations": ["contiguousSequences"],
+          "violations": ["length"],
           "passcodeRules": {
             "validations": {
               "repeatedPatterns": {
@@ -7180,7 +7291,7 @@ Represents Password resource.
                     "useRuleLevel": {
                       "title": "Choices for the Customer password rule to decide which type of rules to use",
                       "description": "Choices for the Customer password rule to decide which type of rules to use.",
-                      "enum": ["System", "Customer"]
+                      "enum": ["System", "Customer", "Site"]
                     },
                     "disallowRulesModification": {
                       "title": "Disallow password rules modification",
