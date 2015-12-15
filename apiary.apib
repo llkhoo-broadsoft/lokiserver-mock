@@ -2607,7 +2607,7 @@ Represents Password resource.
     
     + Body
         {
-          "userId": "testuser@example.net"
+          "userId": "testuser@example.com"
         }
         
     + Schema
@@ -2636,8 +2636,8 @@ Represents Password resource.
 
         {
           "_links": {
-            "self": { "href": "/api/customers/{+customerId}/generatePassword" },
-            "up": { "href": "/api/customers/{+customerId} " }
+            "self": { "href": "/api/customers/DemoCustomer/generatePassword" },
+            "up": { "href": "/api/customers/DemoCustomer" }
           },
           "password": "H54!#sfUa"
         }
@@ -2677,7 +2677,7 @@ Represents Password resource.
     
     + Body
         {
-          "password": "H54!#sfUa"
+          "password": "123456"
         }
         
     + Schema
@@ -2713,10 +2713,10 @@ Represents Password resource.
         {
           "_links": {
             "self": {
-              "href": "/api/customers/{+customerId}/validatePassword"
+              "href": "/api/customers/DemoCustomer/validatePassword"
             },
             "up": {
-              "href": "/api/customers/{+customerId} "
+              "href": "/api/customers/DemoCustomer"
             }
           },
           "isValid": false,
@@ -2729,16 +2729,16 @@ Represents Password resource.
             "useRuleLevel": "Customer",
             "disallowRulesModification": false,
             "rulesApplyTo": "Administrator",
-            "allowWebAddExternalAuthenticationUsers": false,
+            "allowWebAddExternalAuthenticationUsers": true,
             "validations": {
               "userId": {
-                "disallow": false
+                "disallow": true
               },
               "oldPassword": {
                 "disallow": true
               },
               "reversedOldPassword": {
-                "disallow": false
+                "disallow": true
               },
               "previousPasswords": {
                 "disallow": true,
@@ -3645,12 +3645,12 @@ Retrieve Customer’s Sites resource.
                     "href": "http://uc.example.com/api/customers/DemoCustomer/sites/DemoSite/restoreDefaultFeatureAccessCodes"
                   }
                 },
-                "siteId": "DemoSite1",
+                "siteId": "DemoSite",
                 "userLimit": 25,
-                "siteName": "DemoSite1",
+                "siteName": "DemoSite",
                 "extensions": {
                   "broadworks": {
-                    "resourceId": "DemoSite1"
+                    "resourceId": "DemoSite"
                   }
                 }
               },
@@ -3676,7 +3676,7 @@ Retrieve Customer’s Sites resource.
                   }
                 },
                 "siteId": "DemoSite2",
-                "userLimit": 25,
+                "userLimit": 28,
                 "siteName": "DemoSite2",
                 "extensions": {
                   "broadworks": {
@@ -3789,7 +3789,7 @@ Retrieve Site resource.
               "name": "ExampleCom",
               "phoneNumber": "+1-2025555003"
             },
-            "timeZone": "US\/Eastern",
+            "timeZone": "America/Edmonton",
             "locationDialingCode": "1",
             "contact": {
               "name": "bob jones",
@@ -5200,7 +5200,7 @@ Modify a Site resource.
                "name": "ExampleCom",
                "phoneNumber": "+1-2025555003"
              },
-             "timeZone": "US\/Eastern",
+             "timeZone": "America/Edmonton",
              "locationDialingCode": "1",
              "contact": {
                "name": "bob jones",
@@ -6566,8 +6566,8 @@ Represents Passcode resource.
 
         {
           "_links": {
-            "self": { "href": "/api/customers/{+customerId}/sites/{+siteId}/generatePasscode" },
-            "up": { "href": "/api/customers/{+customerId}/sites/{+siteId}" }
+            "self": { "href": "/api/customers/DemoCustomer/sites/DemoSite/generatePasscode" },
+            "up": { "href": "/api/customers/DemoCustomer/sites/DemoSite" }
           },
           "passcode": "66754081"
         }
@@ -6607,8 +6607,8 @@ Represents Passcode resource.
 
     + Body
         {
-          "passcode": "66754081",
-          "userId": "testuser@example.net"
+          "passcode": "12444",
+          "userId": "testuser@example.com"
         }
     
     + Schema
@@ -6649,10 +6649,10 @@ Represents Passcode resource.
         {
           "_links": {
             "self": {
-              "href": "/api/customers/{+customerId}/sites/{+siteId}/validatePasscode"
+              "href": "/api/customers/DemoCustomer/sites/DemoSite/validatePasscode"
             },
             "up": {
-              "href": "/api/customers/{+customerId}/sites/{+siteId}"
+              "href": "/api/customers/DemoCustomer/sites/DemoSite"
             }
           },
           "isValid": false,
@@ -6666,10 +6666,10 @@ Represents Passcode resource.
                 "disallow": true
               },
               "reversedUserNumber": {
-                "disallow": false
+                "disallow": true
               },
               "reversedOldPasscode": {
-                "disallow": false
+                "disallow": true
               },
               "repeatedDigits": {
                 "disallow": true,
@@ -6699,7 +6699,7 @@ Represents Passcode resource.
             },
             "loginDisabledNotification": {
               "sendEmail": false,
-              "email": "DemoEmail@example.com"
+              "email": null
             }
           }
         }
@@ -6978,7 +6978,7 @@ Represents Password resource.
     
     + Body
         {
-          "userId": "testuser@example.net"
+          "userId": "testuser@example.com"
         }
         
     + Schema
@@ -7007,8 +7007,8 @@ Represents Password resource.
 
         {
           "_links": {
-            "self": { "href": "/api/customers/{+customerId}/sites/{+siteId}/generatePassword" },
-            "up": { "href": "/api/customers/{+customerId}/sites/{+siteId}" }
+            "self": { "href": "/api/customers/DemoCustomer/sites/DemoSite/generatePassword" },
+            "up": { "href": "/api/customers/DemoCustomer/sites/DemoSite" }
           },
           "password": "H54!#sfUa"
         }
@@ -7048,7 +7048,7 @@ Represents Password resource.
         
     + Body
         {
-          "password": "H54!#sfUa"
+          "password": "123456"
         }
         
     + Schema
@@ -7084,28 +7084,28 @@ Represents Password resource.
         {
           "_links": {
             "self": {
-              "href": "/api/customers/{+customerId}/sites/{+siteId}/validatePassword"
+              "href": "/api/customers/DemoCustomer/sites/DemoSite/validatePassword"
             },
             "up": {
-              "href": "/api/customers/{+customerId}/sites/{+siteId}"
+              "href": "/api/customers/DemoCustomer/sites/DemoSite"
             }
           },
           "isValid": false,
           "violations": ["upperCaseLetters", "lowerCaseLetters", "length"],
           "passwordRules": {
-            "useRuleLevel": "Customer",
+            "useRuleLevel": "Site",
             "disallowRulesModification": false,
             "rulesApplyTo": "Administrator",
             "allowWebAddExternalAuthenticationUsers": false,
             "validations": {
               "userId": {
-                "disallow": false
+                "disallow": true
               },
               "oldPassword": {
                 "disallow": true
               },
               "reversedOldPassword": {
-                "disallow": false
+                "disallow": true
               },
               "previousPasswords": {
                 "disallow": true,
@@ -7511,7 +7511,7 @@ Represents Password resource.
     
     + Body
         {
-          "userId": "testuser@example.net"
+          "userId": "testuser@example.com"
         }
         
     + Schema
@@ -7580,7 +7580,7 @@ Represents Password resource.
     
     + Body
         {
-          "password": "H54!#sfUa"
+          "password": "123456"
         }
         
     + Schema
@@ -8128,12 +8128,12 @@ Retrieve a VoIP User’s Call Forwarding Always service settings
         {
             "_links": {
                 "self": {
-                    "href": "http://lokiserver.apiary.io/loki/users/testuser@example.net/services/Call%20Forwarding%Always"
+                    "href": "http://lokiserver.apiary.io/loki/users/testuser@example.com/services/Call%20Forwarding%Always"
                 },
-                "up": { "href": "http://lokiserver.apiary.io/loki/users/testuser@example.net/services" },
-                "ls:user": { "href": "http://lokiserver.apiary.io/loki/users/testuser@example.net" }
+                "up": { "href": "http://lokiserver.apiary.io/loki/users/testuser@example.com/services" },
+                "ls:user": { "href": "http://lokiserver.apiary.io/loki/users/testuser@example.com" }
             },
-            "userId": "testuser@example.net",
+            "userId": "testuser@example.com",
             "isActive": true,
             "forwardToPhoneNumber": "2005553002",
             "isRingSplashActive": false
@@ -8266,7 +8266,7 @@ Retrieve a VoIP User.
         {
             "_links": {
                 "self": {
-                    "href": "http://example.com/api/customers/DemoCustomer/sites/DemoSite/users/testuser@example.net"
+                    "href": "http://example.com/api/customers/DemoCustomer/sites/DemoSite/users/testuser@example.com"
                 },
                 "collection": {
                     "href": "http://example.com/api/customers/DemoCustomer/sites/DemoSite/users"
@@ -8287,31 +8287,31 @@ Retrieve a VoIP User.
                     "href": "http://example.com/api/customers/DemoCustomer/sites/DemoSite/devices/DemoDevice"
                 },
                 "ls:user-services": {
-                    "href": "http://example.com/api/customers/DemoCustomer/sites/DemoSite/users/testuser@example.net/services"
+                    "href": "http://example.com/api/customers/DemoCustomer/sites/DemoSite/users/testuser@example.com/services"
                 },
                 "ls:user-registrations": {
-                    "href": "http://example.com/api/users/testuser@example.net/registrations"
+                    "href": "http://example.com/api/users/testuser@example.com/registrations"
                 },
                 "ls:user-reInvite": {
-                    "href": "http://example.com/api/users/testuser@example.net/reInvite"
+                    "href": "http://example.com/api/users/testuser@example.com/reInvite"
                 },
                 "ls:user-swapDevice": {
-                    "href": "http://example.com/api/users/testuser@example.net/swapDevice"
+                    "href": "http://example.com/api/users/testuser@example.com/swapDevice"
                 },
                 "ls:user-resetDeviceCredentials": {
-                    "href": "http://example.com/api/users/testuser@example.net/resetDeviceCredentials"
+                    "href": "http://example.com/api/users/testuser@example.com/resetDeviceCredentials"
                 },
                 "ls:validateUserPassword": {
-                    "href": "http://example.com/api/customers/{+customerId}/sites/{+siteId}/validatePassword"
+                    "href": "http://example.com/api/customers/DemoCustomer/sites/DemoSite/validatePassword"
                 },
                 "ls:generateUserPassword": {
-                    "href": "http://example.com/api/customers/{+customerId}/sites/{+siteId}/generatePassword"
+                    "href": "http://example.com/api/customers/DemoCustomer/sites/DemoSite/generatePassword"
                 },
                 "ls:validateUserPasscode": {
-                    "href": "http://example.com/api/customers/{+customerId}/sites/{+siteId}/validatePassword"
+                    "href": "http://example.com/api/customers/DemoCustomer/sites/DemoSite/validatePassword"
                 },
                 "ls:generateUserPasscode": {
-                    "href": "http://example.com/api/customers/{+customerId}/sites/{+siteId}/generatePassword"
+                    "href": "http://example.com/api/customers/DemoCustomer/sites/DemoSite/generatePassword"
                 }
             },
             "_embedded": {
@@ -8334,7 +8334,7 @@ Retrieve a VoIP User.
                     "deviceId": "DemoDevice",
                     "level": "Site",
                     "name": "DemoDevice",
-                    "linePort": "testdevice@example.net",
+                    "linePort": "testdevice@example.com",
                     "port": null,
                     "privateIdentity": null,
                     "contact": [],
@@ -8357,7 +8357,7 @@ Retrieve a VoIP User.
             },
             "customerId": "DemoCustomer",
             "siteId": "DemoSite",
-            "userId": "testuser@example.net",
+            "userId": "testuser@example.com",
             "lastName": "Smith",
             "firstName": "John",
             "title": "Mr",
@@ -8380,14 +8380,14 @@ Retrieve a VoIP User.
             "userDevice": {
                 "deviceId": "DemoDevice",
                 "level": "Site",
-                "linePort": "testdevice@example.net"
+                "linePort": "testdevice@example.com"
             },
             "language": "English",
             "timeZone": "GMT+00:00",
-            "defaultAlias": "testuser@example.net",
+            "defaultAlias": "testuser@example.com",
             "alias": [
-                "testuser_old@example.net",
-                "testuser_me@example.net"
+                "testuser_old@example.com",
+                "testuser_me@example.com"
             ],
             "pagerPhoneNumber": null,
             "mobilePhoneNumber": "+1-7772223000",
@@ -8411,7 +8411,7 @@ Retrieve a VoIP User.
             },
             "extensions": {
                 "broadworks": {
-                    "resourceId": "testuser@example.net"
+                    "resourceId": "testuser@example.com"
                 }
             }
         }
@@ -8512,7 +8512,7 @@ Modify a VoIP User resource.
            },
            "language": "English",
            "timeZone": "GMT+00:00",
-           "defaultAlias": "testuser@example.net",
+           "defaultAlias": "testuser@example.com",
            "alias": [
              "testuser_old@example.net",
              "testuser_me@example.net"
