@@ -59,6 +59,181 @@ Conventions for mock request design:
 
 
 2) PUT request body needs to be the same as GET response data.
+### Generate access token and user information for client [POST /api/auth/oauth2/token]
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+        Transaction-Id: 1380080943120
+        Content-Type: application/x-www-form-urlencoded
+        Authorization: Basic YWRtaW46cGFzc3cwcmQ=
+    
+    + Body
+        {
+          "grant_type": "password",
+          "username": "admin",
+          "password": "passw0rd"
+        }
+        
+    + Schema
+        {
+          "title": "Generate access token and user information for client",
+          "description": "Generate access token and user information for client",
+          "type": "object",
+          "properties": {
+            "grant_type": {
+              "title": "Grant type",
+              "description": "Grant type",
+              "type": "string",
+              "enum": ["password", "client_credentials", "​urn:ietf:params:oauth:grant­typ e:jwt­bearer"]
+            },
+            "username": {
+              "title": "User login",
+              "description": "User login",
+              "type": "string"
+            },
+            "password": {
+              "title": "User password",
+              "description": "User password",
+              "type": "string"
+            },
+            "assertion": {
+              "title": "JWT signature",
+              "description": "Assertions about user encoded as JWT signed with client’s signature",
+              "type": "string"
+            },
+            "scope": {
+              "title": "Access scope",
+              "description": "In initial implementation  scope is not used and  ignored.",
+              "type": "string"
+            }
+          },
+          "required": ["grant_type"]
+        }
+
+
++ Response 200 (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+        Content-Type: application/json,
+        Cache­Control: no­store 
+        Pragma: no­cache
+
+    + Body
+        {
+          "access_token": "2YotnFZFEjr1zCsicMWpAA",
+          "token_type": "bearer",
+          "expires_in": 3600,
+          "user": {
+            "lastName": "Snow",
+            "firstName": "John",
+            "accounts": [{
+              "userId": "test@example.com",
+              "loginType": "User",
+              "siteId": "North",
+              "customerId": "ExampleCom",
+              "hostingNe": "AS1_R21",
+              "isDefault": true
+            }]
+          }
+        }
+
+    + Schema
+        {
+          "title": "Generate access token and user information for client",
+          "description": "Generate access token and user information for client",
+          "type": "object",
+          "properties": {
+            "access_token": {
+              "title": "Access token",
+              "description": "The access token issued by the Authentication service",
+              "type": "string"
+            },
+            "token_type": {
+              "title": "Token type",
+              "description": "Access token type. Initially only “bearer” type is supported",
+              "type": "string",
+              "enum": ["bearer"]
+            },
+            "expires_in": {
+              "title": "Expiring time",
+              "description": "The lifetime in seconds of the access token",
+              "type": "integer"
+            },
+            "refresh_token": {
+              "title": "Refresh token",
+              "description": "Initially not implemented and will not appear in the response",
+              "type": "string"
+            },
+            "scope": {
+              "title": "Access scope",
+              "description": "Initially not implemented and will not appear in the response",
+              "type": "string"
+            },
+            "user": {
+              "title": "User information",
+              "description": "Custom field. Container for user profile information",
+              "type": "object",
+              "properties": {
+                "lastName": {
+                  "title": "User's last name",
+                  "description": "User's last name",
+                  "type": "string"
+                },
+                "firstName": {
+                  "title": "User's first name",
+                  "description": "User's first name",
+                  "type": "string"
+                },
+                "accounts": {
+                  "title": "Broadworks accounts",
+                  "description": "List of Broadworks accounts belonging to user",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "userId": {
+                        "title": "Broadworks User Id",
+                        "description": "Broadworks User Id",
+                        "type": "string"
+                      },
+                      "loginType": {
+                        "title": "User's login type in Broadworks",
+                        "description:": "User's login type in Broadworks",
+                        "type": "string",
+                        "enum": ["System", "Provisioning", "Service Provider", "Group", "Group Department", "User", "Lawful Intercept"]
+                      },
+                      "siteId": {
+                        "title": "User's site",
+                        "description": "User's site",
+                        "type": "string"
+                      },
+                      "customerId": {
+                        "title": "User's customer",
+                        "description": "User's customer",
+                        "type": "string"
+                      },
+                      "hostingNe": {
+                        "title": "User's AS server hostingNe",
+                        "description": "User's AS server hostingNe",
+                        "type": "string"
+                      },
+                      "isDefault": {
+                        "title": "Default account",
+                        "description": "Flag if account should be used as default (if there're more than 1 account)",
+                        "type": "boolean"
+                      }
+                    },
+                    "required": ["userId"]
+                  }
+                }
+              }
+            }
+          },
+          "required": ["access_token", "token_type", "expires_in"]
+        }
+
 # Group Customer 
 Following resources belong to Customer entity.
 ## Customer resource [/api/customers/{+customerId}]
@@ -84,12 +259,14 @@ Represents Customer resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
     
     
 + Response 200 (application/hal+json)
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
@@ -1414,6 +1591,7 @@ Represents Customer resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
     
     + Body
         {
@@ -2601,6 +2779,7 @@ Represents Customer resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
@@ -2657,6 +2836,7 @@ Represents Password resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
     
     + Body
         {
@@ -2684,6 +2864,7 @@ Represents Password resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
@@ -2727,6 +2908,7 @@ Represents Password resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
     
     + Body
         {
@@ -2760,6 +2942,7 @@ Represents Password resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
@@ -3122,6 +3305,7 @@ Request persists log messages in the centralized store.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
          {
@@ -3206,6 +3390,7 @@ Request persists log messages in the centralized store.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
 
 # Group Site Services 
@@ -3237,12 +3422,14 @@ Retrieve Site services.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
 
 + Response 200 (application/hal+json)
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
@@ -3643,12 +3830,14 @@ Retrieve Customer’s Sites resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
 
 + Response 200 (application/hal+json)
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
@@ -3755,69 +3944,11 @@ Retrieve Customer’s Sites resource.
               "required": ["_links"]
             }, {
               "properties": {
-                "_embedded":{
-                  "title": "HAL Embedded resources",
-                  "description": "HAL Embedded resources",
-                  "type": "object",
-                  "required": ["item"],
-                  "properties": {
-                    "item":{
-                      "title": "List of Sites in the Customer",
-                      "description": "List of Sites in the Customer",
-                      "type": "array",
-                      "items": {
-                        "title": "Site",
-                        "description": "Site.",
-                        "type": "object",
-        
-                        "allOf": [
-                          { "$ref": "/base#/definitions/HalResponse" },
-                          { "required": ["_links"] },
-                          {
-                            "properties": {
-                              "siteName": {
-                                "anyOf":[
-                                  { "$ref": "/base#/definitions/SiteName" },
-                                  { "type": "null" }
-                                ]
-                              },
-                              "userLimit": {
-                                "title": "Configured maximum number of users in the Site",
-                                "description": "Configured maximum number of users in the Site.",
-                                "type": "integer",
-                                "minimum": 1,
-                                "maximum": 999999
-                              },
-                              "extensions": {
-                                "title": "Container for various extension data",
-                                "description": "Container for various extension data.",
-                                "type": "object",
-                                "required": ["broadworks"],
-                                "properties": {
-                                  "broadworks": {
-                                    "title": "Container for BroadWorks properties",
-                                    "description": "Container for BroadWorks properties.",
-                                    "type": "object",
-                                    "required": ["resourceId"],
-                                    "properties": {
-                                      "resourceId": { "$ref": "/base#/definitions/SiteId" }
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            "required": ["siteName", "userLimit", "extensions"]
-                          }
-                        ]
-                      }
-                    }
-                  }
-                },
                 "customerId": {
                   "$ref": "/base#/definitions/CustomerId"
                 }
               },
-              "required": ["customerId", "_embedded"]
+              "required": ["customerId"]
             }
           ]
         }
@@ -3847,12 +3978,14 @@ Retrieve Site resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
 
 + Response 200 (application/hal+json)
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
@@ -5300,6 +5433,7 @@ Modify a Site resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
     
     + Body
          {
@@ -6576,6 +6710,7 @@ Modify a Site resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
@@ -6638,6 +6773,7 @@ Represents Passcode resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
     
     + Body
         {
@@ -6672,6 +6808,7 @@ Represents Passcode resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
@@ -6715,6 +6852,7 @@ Represents Passcode resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
         {
@@ -6755,6 +6893,7 @@ Represents Passcode resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
         {
@@ -7086,6 +7225,7 @@ Represents Password resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
     
     + Body
         {
@@ -7113,6 +7253,7 @@ Represents Password resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
@@ -7157,6 +7298,7 @@ Represents Password resource.
     + Headers
         Transaction-Id: 1380080943120
         
+        
     + Body
         {
           "password": "123456"
@@ -7189,6 +7331,7 @@ Represents Password resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
@@ -7560,13 +7703,15 @@ Restore default Site feature access codes.
 + Request (application/json)
 
     + Headers
-        Transaction-Id: 1380080943120z
+        Transaction-Id: 1380080943120
+        z
 
 
 + Response 200 (application/hal+json)
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
@@ -7619,6 +7764,7 @@ Represents Password resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
     
     + Body
         {
@@ -7646,6 +7792,7 @@ Represents Password resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
@@ -7688,6 +7835,7 @@ Represents Password resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
     
     + Body
         {
@@ -7721,6 +7869,7 @@ Represents Password resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
@@ -8084,12 +8233,14 @@ Retrieve system Time Zones list.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
 
 + Response 200 (application/hal+json)
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
@@ -8227,12 +8378,14 @@ Retrieve a VoIP User’s Call Forwarding Always service settings
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
 
 + Response 200 (application/hal+json)
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
@@ -8287,6 +8440,7 @@ Modify VoIP User’s Call Forwarding Always Settings
 
     + Headers
         Transaction-Id: 1380080943120
+        
    
     + Body
  
@@ -8325,6 +8479,7 @@ Modify VoIP User’s Call Forwarding Always Settings
 
     + Headers
         Transaction-Id: 1380080943120
+        
 # Group VoIP User
 Following resources belong to VoIP User entity.
 
@@ -8365,12 +8520,14 @@ Retrieve a VoIP User.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
 
 + Response 200 (application/hal+json)
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
@@ -8599,6 +8756,7 @@ Modify a VoIP User resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
     
     + Body
          {
@@ -8938,6 +9096,7 @@ Modify a VoIP User resource.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
@@ -9001,11 +9160,13 @@ Retrieve a VoIP User's Registrations List.
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
 + Response 200 (application/hal+json)
 
     + Headers
         Transaction-Id: 1380080943120
+        
 
     + Body
 
