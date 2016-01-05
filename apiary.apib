@@ -318,35 +318,107 @@ Represents Access Token resource.
           "title": "Generate access token",
           "description": "Generate access token",
           "type": "object",
-          "properties": {
-            "grant_type": {
-              "title": "Grant type",
-              "description": "Grant type",
-              "type": "string",
-              "enum": ["password", "client_credentials", "​urn:ietf:params:oauth:grant­typ e:jwt­bearer"]
+          "oneOf": [
+            {
+              "properties": {
+                "grant_type": {
+                  "title": "Grant type",
+                  "description": "Grant type",
+                  "type": "string",
+                  "enum": [
+                    "password"
+                  ]
+                },
+                "username": {
+                  "title": "User login",
+                  "description": "User login",
+                  "type": "string"
+                },
+                "password": {
+                  "title": "User password",
+                  "description": "User password",
+                  "type": "string"
+                },
+                "assertion": {
+                  "title": "JWT signature",
+                  "description": "Assertions about user encoded as JWT signed with client’s signature",
+                  "type": "string"
+                },
+                "scope": {
+                  "title": "Access scope",
+                  "description": "In initial implementation  scope is not used and  ignored.",
+                  "type": "string"
+                }
+              },
+              "required": ["grant_type", "username", "password"]
             },
-            "username": {
-              "title": "User login",
-              "description": "User login",
-              "type": "string"
+            {
+              "properties": {
+                "grant_type": {
+                  "title": "Grant type",
+                  "description": "Grant type",
+                  "type": "string",
+                  "enum": [
+                    "​urn:ietf:params:oauth:grant­typ e:jwt­bearer"
+                  ]
+                },
+                "username": {
+                  "title": "User login",
+                  "description": "User login",
+                  "type": "string"
+                },
+                "password": {
+                  "title": "User password",
+                  "description": "User password",
+                  "type": "string"
+                },
+                "assertion": {
+                  "title": "JWT signature",
+                  "description": "Assertions about user encoded as JWT signed with client’s signature",
+                  "type": "string"
+                },
+                "scope": {
+                  "title": "Access scope",
+                  "description": "In initial implementation  scope is not used and  ignored.",
+                  "type": "string"
+                }
+              },
+              "required": ["grant_type", "assertion"]
             },
-            "password": {
-              "title": "User password",
-              "description": "User password",
-              "type": "string"
-            },
-            "assertion": {
-              "title": "JWT signature",
-              "description": "Assertions about user encoded as JWT signed with client’s signature",
-              "type": "string"
-            },
-            "scope": {
-              "title": "Access scope",
-              "description": "In initial implementation  scope is not used and  ignored.",
-              "type": "string"
+            {
+              "properties": {
+                "grant_type": {
+                  "title": "Grant type",
+                  "description": "Grant type",
+                  "type": "string",
+                  "enum": [
+                    "client_credentials"
+                  ]
+                },
+                "username": {
+                  "title": "User login",
+                  "description": "User login",
+                  "type": "string"
+                },
+                "password": {
+                  "title": "User password",
+                  "description": "User password",
+                  "type": "string"
+                },
+                "assertion": {
+                  "title": "JWT signature",
+                  "description": "Assertions about user encoded as JWT signed with client’s signature",
+                  "type": "string"
+                },
+                "scope": {
+                  "title": "Access scope",
+                  "description": "In initial implementation  scope is not used and  ignored.",
+                  "type": "string"
+                }
+              },
+              "required": ["grant_type"]
             }
-          },
-          "required": ["grant_type"]
+          ]
         }
 
 
