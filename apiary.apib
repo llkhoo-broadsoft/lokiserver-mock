@@ -61,6 +61,239 @@ Conventions for mock request design:
 2) PUT request body needs to be the same as GET response data.
 # Group Authentication Service
 Following resources belong to Authentication Service.
+### Get information about access token [POST /api/auth/oauth2/introspect]
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+        Transaction-Id: 1380080943120
+        Content-Type: application/x-www-form-urlencoded
+        Authorization: Bearer 2YotnFZFEjr1zCsicMWpAA
+    
+    + Body
+        {
+          "token": "2YotnFZFEjr1zCsic",
+          "token_type_hint": "access_token",
+          "resource_id": "user"
+        }
+        
+    + Schema
+        {
+          "title": "Get information about access token",
+          "description": "Get information about access token",
+          "type": "object",
+          "properties": {
+            "token": {
+              "title": "Access token",
+              "description": "Token to check",
+              "type": "string"
+            },
+            "token_type_hint": {
+              "title": "Token type",
+              "description": "Optional token type. Initially only access token is supported",
+              "type": "string",
+              "enum": ["access_token"]
+            },
+            "resource_id": {
+              "title": "Array of resources associated with token",
+              "description": "Custom field. Array of resources associated with token, that need to be included in the response. Requesting client must be configured to have access to specific resources. Initially, only “user” resource will be supported. Only BroadWorks Utility service should be authorized to retrieve this resource",
+              "type": "string",
+              "enum": ["user"]
+            }
+          },
+          "required": ["token"]
+        }
+
+
++ Response 200 (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+        
+
+    + Body
+        {
+          "active": true,
+          "client_id": "l238j323ds­23ij4",
+          "exp": 141935623,
+          "iat": 141935623,
+          "user": {
+            "lastName": "Snow",
+            "firstName": "John",
+            "accounts": [{
+              "userId": "test@example.com",
+              "password": "99ebdbd711b0e1854a6c2e93f759efc2af291fd0",
+              "loginType": "User",
+              "siteId": "North",
+              "customerId": "ExampleCom",
+              "hostingNe": "AS1_R21",
+              "isDefault": true
+            }]
+          }
+        }
+
+    + Schema
+        {
+          "title": "Get information about access token",
+          "description": "Get information about access token",
+          "type": "object",
+          "properties": {
+            "active": {
+              "title": "Token available flag",
+              "description": "Indicator of whether or not the presented token is valid and currently active",
+              "type": "boolean"
+            },
+            "scope": {
+              "title": "Access scope",
+              "description": "Scope associated with token. Initially not supported. Will be omitted from response",
+              "type": "string"
+            },
+            "client_id": {
+              "title": "Client that obtained the token",
+              "description": "Client that initially obtained the token",
+              "type": "string"
+            },
+            "username": {
+              "title": "User's login",
+              "description": "Initially not implemented and will not appear in the response",
+              "type": "string"
+            },
+            "token_type": {
+              "title": "Token type",
+              "description": "Initially not implemented and will not appear in the response",
+              "type": "string"
+            },
+            "exp": {
+              "title": "Expiration time",
+              "description": "Unix timestamp in seconds of token expiration time",
+              "type": "integer"
+            },
+            "iat": {
+              "title": "Issue time",
+              "description": "Unix timestamp in seconds of token issue time",
+              "type": "integer"
+            },
+            "nbf": {
+              "description": "Initially not implemented and will not appear in the response"
+            },
+            "sub": {
+              "description": "Initially not implemented and will not appear in the response"
+            },
+            "aud": {
+              "description": "Initially not implemented and will not appear in the response"
+            },
+            "iss": {
+              "description": "Initially not implemented and will not appear in the response"
+            },
+            "jti": {
+              "description": "Initially not implemented and will not appear in the response"
+            },
+            "user": {
+              "title": "User information",
+              "description": "Custom field. Container for user profile information",
+              "type": "object",
+              "properties": {
+                "lastName": {
+                  "title": "User's last name",
+                  "description": "User's last name",
+                  "type": "string"
+                },
+                "firstName": {
+                  "title": "User's first name",
+                  "description": "User's first name",
+                  "type": "string"
+                },
+                "accounts": {
+                  "title": "Broadworks accounts",
+                  "description": "List of Broadworks accounts belonging to user",
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "userId": {
+                        "title": "Broadworks User Id",
+                        "description": "Broadworks User Id",
+                        "type": "string"
+                      },
+                      "loginType": {
+                        "title": "User's login type in Broadworks",
+                        "description:": "User's login type in Broadworks",
+                        "type": "string",
+                        "enum": ["System", "Provisioning", "Service Provider", "Group", "Group Department", "User", "Lawful Intercept"]
+                      },
+                      "siteId": {
+                        "title": "User's site",
+                        "description": "User's site",
+                        "type": "string"
+                      },
+                      "customerId": {
+                        "title": "User's customer",
+                        "description": "User's customer",
+                        "type": "string"
+                      },
+                      "hostingNe": {
+                        "title": "User's AS server hostingNe",
+                        "description": "User's AS server hostingNe",
+                        "type": "string"
+                      },
+                      "isDefault": {
+                        "title": "Default account",
+                        "description": "Flag if account should be used as default (if there're more than 1 account)",
+                        "type": "boolean"
+                      }
+                    },
+                    "required": ["userId"]
+                  }
+                }
+              }
+            }
+          },
+          "required": ["active"]
+        }
+
+### Invalidate access token [POST /api/auth/oauth2/revoke]
+
++ Request (application/x-www-form-urlencoded)
+
+    + Headers
+        Transaction-Id: 1380080943120
+        Content-Type: application/x-www-form-urlencoded
+        Authorization: Bearer 2YotnFZFEjr1zCsicMWpAA
+    
+    + Body
+        {
+          "token": "2YotnFZFEjr1zCsic",
+          "token_type_hint": "access_token"
+        }
+        
+    + Schema
+        {
+          "title": "Invalidate access token",
+          "description": "Invalidate access token",
+          "type": "object",
+          "properties": {
+            "token": {
+              "title": "Access token",
+              "description": "The token that the client wants to get revoke",
+              "type": "string"
+            },
+            "token_type_hint": {
+              "title": "Token type",
+              "description": "Optional token type. Initially only access token is supported",
+              "type": "string",
+              "enum": ["access_token"]
+            }
+          },
+          "required": ["token"]
+        }
+
+
++ Response 200 (application/json)
+
+    + Headers
+        Transaction-Id: 1380080943120
+        
+
 ### Generate access token and user information for client [POST /api/auth/oauth2/token]
 
 + Request (application/x-www-form-urlencoded)
@@ -118,7 +351,7 @@ Following resources belong to Authentication Service.
 
     + Headers
         Transaction-Id: 1380080943120
-        Content-Type: application/json,
+        Content-Type: application/json
         Cache­Control: no­store 
         Pragma: no­cache
 
