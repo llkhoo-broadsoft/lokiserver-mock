@@ -125,7 +125,7 @@ Represents Access Token resource.
             "firstName": "John",
             "accounts": [{
               "userId": "test@example.com",
-              "password": "99ebdbd711b0e1854a6c2e93f759efc2af291fd0",
+              "password": "993f759efc2af291fd0",
               "loginType": "User",
               "siteId": "North",
               "customerId": "ExampleCom",
@@ -320,6 +320,7 @@ Represents Access Token resource.
           "type": "object",
           "oneOf": [
             {
+              "id": "grant_type value is password, then username, password fields are required",
               "properties": {
                 "grant_type": {
                   "title": "Grant type",
@@ -353,6 +354,7 @@ Represents Access Token resource.
               "required": ["grant_type", "username", "password"]
             },
             {
+              "id": "grant_type value is urn:ietf:params:oauth:grant­typ e:jwt­bearer, then assertion field is required",
               "properties": {
                 "grant_type": {
                   "title": "Grant type",
@@ -386,6 +388,7 @@ Represents Access Token resource.
               "required": ["grant_type", "assertion"]
             },
             {
+              "id": "grant_type is required",
               "properties": {
                 "grant_type": {
                   "title": "Grant type",
