@@ -550,9 +550,6 @@ Following resources belong to Customer entity.
 ## Customer resource [/api/customers/{customerId}]
 Represents Customer resource.
 
-+ Parameters
-    + customerId: `customerExample` (string, required)
-
 ### URI Template Parameters JSON Schema
     {
       "title": "Customer resource URI template parameters",
@@ -563,6 +560,9 @@ Represents Customer resource.
       },
       "required": ["customerId"]
     }
+    
++ Parameters
+    + customerId: `customerExample` (string, required)
 
 ### Retrieve a Customer [GET] 
 
@@ -3126,9 +3126,6 @@ Represents Customer resource.
 ## Password resource [/api/customers/{customerId}/password]
 Represents Password resource.
 
-+ Parameters
-    + customerId: `customerExample` (string, required)
-
 ### URI Template Parameters JSON Schema
     {
       "title": "Customer resource URI template parameters",
@@ -3139,8 +3136,10 @@ Represents Password resource.
       },
       "required": ["customerId"]
     }
+### Generate Site Administrator password [POST /api/customers/{customerId}/generatePassword] 
 
-### Generate Site Administrator password [POST /api/customers/{+customerId}/generatePassword] 
++ Parameters
+    + customerId: `customerExample` (string, required
 
 + Links
     + self - Self link.
@@ -3210,7 +3209,10 @@ Represents Password resource.
           ]
         }
 
-### Validate Site Administrator password [POST /api/customers/{+customerId}/validatePassword] 
+### Validate Site Administrator password [POST /api/customers/{customerId}/validatePassword] 
+
++ Parameters
+    + customerId: `customerExample` (string, required
 
 + Links
     + self - Self link.
@@ -3706,10 +3708,6 @@ Following resources belong to Site Services.
 ## Site services resource [/api/customers/{customerId}/sites/{siteId}/services]
 Represents Site services resource.
 
-+ Parameters
-    + customerId: `customerExample` (string, required)
-    + siteId: `siteExample` (string, required)
-
 ### URI Template Parameters JSON Schema
     {
       "title": "Site services URI template parameters",
@@ -3722,7 +3720,9 @@ Represents Site services resource.
       "required": ["customerId", "siteId"]
     }
 
-
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
 ### Retrieve Site services [GET]
 Retrieve Site services.
 
@@ -4117,9 +4117,6 @@ Following resources belong to Site entity.
 ## Customer’s Sites resource [/api/customers/{customerId}/sites]
 Represents Customer’s Sites resource.
 
-+ Parameters
-    + customerId: `customerExample` (string, required)
-
 ### URI Template Parameters JSON Schema
     {
       "title": "Customer’s Sites list URI template parameters",
@@ -4131,7 +4128,8 @@ Represents Customer’s Sites resource.
       "required": ["customerId"]
     }
 
-
++ Parameters
+    + customerId: `customerExample` (string, required)
 ### Retrieve Customer’s Sites resource [GET]
 Retrieve Customer’s Sites resource.
 
@@ -4266,10 +4264,6 @@ Retrieve Customer’s Sites resource.
 ## Site resource [/api/customers/{customerId}/sites/{siteId}]
 Represents Site resource.
 
-+ Parameters
-    + customerId: `customerExample` (string, required)
-    + siteId: `siteExample` (string, required)
-
 ### URI Template Parameters JSON Schema
     {
       "title": "Site resource URI template parameters",
@@ -4282,6 +4276,9 @@ Represents Site resource.
       "required": ["customerId", "siteId"]
     }
 
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
 ### Retrieve Site resource [GET]
 Retrieve Site resource.
 
@@ -7062,10 +7059,6 @@ Modify a Site resource.
 ## Passcode resource [/api/customers/{customerId}/sites/{siteId}/passcode]
 Represents Passcode resource.
 
-+ Parameters
-    + customerId: `customerExample` (string, required)
-    + siteId: `siteExample` (string, required)
-
 ### URI Template Parameters JSON Schema
     {
       "title": "Site resource URI template parameters",
@@ -7077,8 +7070,11 @@ Represents Passcode resource.
       },
       "required": ["customerId", "siteId"]
     }
+### Generate User passcode [POST /api/customers/{customerId}/sites/{siteId}/generatePasscode] 
 
-### Generate User passcode [POST /api/customers/{+customerId}/sites/{+siteId}/generatePasscode] 
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
 
 + Links
     + self - Self link.
@@ -7155,7 +7151,11 @@ Represents Passcode resource.
           ]
         }
 
-### Validate User passcode [POST /api/customers/{+customerId}/sites/{+siteId}/validatePasscode] 
+### Validate User passcode [POST /api/customers/{customerId}/sites/{siteId}/validatePasscode] 
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
 
 + Links
     + self - Self link.
@@ -7514,10 +7514,6 @@ Represents Passcode resource.
 ## Password resource [/api/customers/{customerId}/sites/{siteId}/password]
 Represents Password resource.
 
-+ Parameters
-    + customerId: `customerExample` (string, required)
-    + siteId: `siteExample` (string, required)
-
 ### URI Template Parameters JSON Schema
     {
       "title": "Site resource URI template parameters",
@@ -7529,8 +7525,11 @@ Represents Password resource.
       },
       "required": ["customerId", "siteId"]
     }
+### Generate User password [POST /api/customers/{customerId}/sites/{siteId}/generatePassword]
 
-### Generate User password [POST /api/customers/{+customerId}/sites/{+siteId}/generatePassword] 
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
 
 + Links
     + self - Self link.
@@ -7600,7 +7599,11 @@ Represents Password resource.
           ]
         }
 
-### Validate User password [POST /api/customers/{+customerId}/sites/{+siteId}/validatePassword] 
+### Validate User password [POST /api/customers/{customerId}/sites/{siteId}/validatePassword]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
 
 + Links
     + self - Self link.
@@ -7992,10 +7995,6 @@ Represents Password resource.
 
 ## Restore default Site feature access codes  [/api/customers/{customerId}/sites/{siteId}/restoreDefaultFeatureAccessCodes]
 
-+ Parameters
-    + customerId: `customerExample` (string, required)
-    + siteId: `siteExample` (string, required)
-
 ### URI Template Parameters JSON Schema
     {
       "title": "Site resource URI template parameters",
@@ -8007,6 +8006,10 @@ Represents Password resource.
       },
       "required": ["customerId", "siteId"]
     }
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
 
 ### Restore default Site feature access codes [POST]
 Restore default Site feature access codes.
@@ -8662,9 +8665,6 @@ Following resources belong to User Services.
 ## VoIP User’s Call Forwarding Always Settings [/loki/users/{userId}/services/Call%20Forwarding%20Always]
 VoIP User’s Call Forwarding Always Settings
 
-+ Parameters
-    + userId: `userExample` (string, required)
-
 ### URI Template Parameters JSON Schema
     {
         "title": "VoIP User resource URI template parameters",
@@ -8675,6 +8675,9 @@ VoIP User’s Call Forwarding Always Settings
         },
         "required": ["userId"]
     }
+    
++ Parameters
+    + userId: `userExample` (string, required)
 ### Retrieve a VoIP User’s Call Forwarding Always service settings [GET]
 Retrieve a VoIP User’s Call Forwarding Always service settings
 
@@ -8791,9 +8794,6 @@ Following resources belong to VoIP User entity.
 ## VoIP User [/loki/users/{userId}]
 Represents VoIP User resource.
 
-+ Parameters
-    + userId: `userExample` (string, required)
-
 ### URI Template Parameters JSON Schema
     {
         "title": "VoIP User resource URI template parameters",
@@ -8805,6 +8805,8 @@ Represents VoIP User resource.
         "required": ["userId"]
     }
 
++ Parameters
+    + userId: `userExample` (string, required)
 
 ### Retrieve a VoIP User [GET]
 Retrieve a VoIP User.
@@ -9437,9 +9439,6 @@ Modify a VoIP User resource.
 ## VoIP User Registrations List [/loki/users/{userId}/registrations]
 Represents the Collection of VoIP User registrations.
 
-+ Parameters
-    + userId: `userExample` (string, required)
-
 ### URI Template Parameters JSON Schema
     {
         "title": "VoIP User resource URI template parameters",
@@ -9450,7 +9449,10 @@ Represents the Collection of VoIP User registrations.
         },
         "required": ["userId"]
     }
-### Retrieve a VoIP User's Registrations List [GET /loki/users/{+userId}/registrations]
+    
++ Parameters
+    + userId: `userExample` (string, required)
+### Retrieve a VoIP User's Registrations List [GET]
 Retrieve a VoIP User's Registrations List.
 
 + Links
@@ -9459,9 +9461,6 @@ Retrieve a VoIP User's Registrations List.
 
 + Embedded Resources
     + item
-
-+ Parameters
-    + userId - VoIP User ID
 
 + Request (application/json)
 
