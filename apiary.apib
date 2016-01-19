@@ -550,8 +550,8 @@ Following resources belong to Customer entity.
 ## Customer resource [/api/customers/{customerId}]
 Represents Customer resource.
 
-- Parameters
-    - customerId: (required, uri)
++ Parameters
+    + customerId: `customerExample` (string, required)
 
 ### URI Template Parameters JSON Schema
     {
@@ -3126,8 +3126,8 @@ Represents Customer resource.
 ## Password resource [/api/customers/{customerId}/password]
 Represents Password resource.
 
-- Parameters
-    - customerId: (required, uri)
++ Parameters
+    + customerId: `customerExample` (string, required)
 
 ### URI Template Parameters JSON Schema
     {
@@ -3706,9 +3706,9 @@ Following resources belong to Site Services.
 ## Site services resource [/api/customers/{customerId}/sites/{siteId}/services]
 Represents Site services resource.
 
-- Parameters
-    - customerId: (required, uri)
-    - siteId: (required, uri)
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
 
 ### URI Template Parameters JSON Schema
     {
@@ -4117,8 +4117,8 @@ Following resources belong to Site entity.
 ## Customer’s Sites resource [/api/customers/{customerId}/sites]
 Represents Customer’s Sites resource.
 
-- Parameters
-    - customerId: (required, uri)
++ Parameters
+    + customerId: `customerExample` (string, required)
 
 ### URI Template Parameters JSON Schema
     {
@@ -4266,9 +4266,9 @@ Retrieve Customer’s Sites resource.
 ## Site resource [/api/customers/{customerId}/sites/{siteId}]
 Represents Site resource.
 
-- Parameters
-    - customerId: (required, uri)
-    - siteId: (required, uri)
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
 
 ### URI Template Parameters JSON Schema
     {
@@ -7062,9 +7062,9 @@ Modify a Site resource.
 ## Passcode resource [/api/customers/{customerId}/sites/{siteId}/passcode]
 Represents Passcode resource.
 
-- Parameters
-    - customerId: (required, uri)
-    - siteId: (required, uri)
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
 
 ### URI Template Parameters JSON Schema
     {
@@ -7514,9 +7514,9 @@ Represents Passcode resource.
 ## Password resource [/api/customers/{customerId}/sites/{siteId}/password]
 Represents Password resource.
 
-- Parameters
-    - customerId: (required, uri)
-    - siteId: (required, uri)
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
 
 ### URI Template Parameters JSON Schema
     {
@@ -7990,7 +7990,11 @@ Represents Password resource.
           ]
         }
 
-## Restore default Site feature access codes  [/api/customers/{+customerId}/sites/{+siteId}/restoreDefaultFeatureAccessCodes]
+## Restore default Site feature access codes  [/api/customers/{customerId}/sites/{siteId}/restoreDefaultFeatureAccessCodes]
+
++ Parameters
+    + customerId: `customerExample` (string, required)
+    + siteId: `siteExample` (string, required)
 
 ### URI Template Parameters JSON Schema
     {
@@ -8658,8 +8662,8 @@ Following resources belong to User Services.
 ## VoIP User’s Call Forwarding Always Settings [/loki/users/{userId}/services/Call%20Forwarding%20Always]
 VoIP User’s Call Forwarding Always Settings
 
-- Parameters
-    - userId: (required, uri)
++ Parameters
+    + userId: `userExample` (string, required)
 
 ### URI Template Parameters JSON Schema
     {
@@ -8787,8 +8791,8 @@ Following resources belong to VoIP User entity.
 ## VoIP User [/loki/users/{userId}]
 Represents VoIP User resource.
 
-- Parameters
-    - userId: (required, uri)
++ Parameters
+    + userId: `userExample` (string, required)
 
 ### URI Template Parameters JSON Schema
     {
@@ -9433,8 +9437,8 @@ Modify a VoIP User resource.
 ## VoIP User Registrations List [/loki/users/{userId}/registrations]
 Represents the Collection of VoIP User registrations.
 
-- Parameters
-    - userId: (required, uri)
++ Parameters
+    + userId: `userExample` (string, required)
 
 ### URI Template Parameters JSON Schema
     {
