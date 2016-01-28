@@ -3612,6 +3612,9 @@ Following resources belong to Logging Service.
 ## Save a new log message [POST /api/logging/addLogs]
 Request persists log messages in the centralized store.
 
+If service cannot store log message, `503 Service Unavailable` error response will be returned.
+Error response contents is *TBD*.
+
 + Request (application/json)
 
     + Headers
